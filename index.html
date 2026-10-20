@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#050608" />
+  <title>Lodi Timer • Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #050608;
+      --surface: #0f1117;
+      --surface-border: #1a1e28;
+      --text-main: #f0f3fa;
+      --text-dim: #717b94;
+      --color-primary: #00e676;
+      --color-primary-rgb: 0, 230, 118;
+      --font-display: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      --dial-border-color: rgba(255, 255, 255, 0.08);
+      --dial-bg: transparent;
+      --dial-radius: 50%;
+    }
+
+    body.color-cyan { --color-primary: #00d4ff; --color-primary-rgb: 0, 212, 255; }
+    body.color-amber { --color-primary: #ffb300; --color-primary-rgb: 255, 179, 0; }
+    body.color-crimson { --color-primary: #ff334b; --color-primary-rgb: 255, 51, 75; }
+    body.color-white { --color-primary: #e6edfa; --color-primary-rgb: 230, 237, 250; }
+
+    body.style-chrono { --font-display: 'Plus Jakarta Sans', sans-serif; }
+    body.style-ticks { --font-display: 'Plus Jakarta Sans', sans-serif; }
+    body.style-segment { --font-display: 'Share Tech Mono', monospace; letter-spacing: -2px; }
+    body.style-monolith { --font-display: 'Plus Jakarta Sans', sans-serif; --dial-bg: var(--color-primary); --text-main: #000000; }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; -webkit-tap-highlight-color: transparent; }
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: env(safe-area-inset-top, 16px) 16px env(safe-area-inset-bottom, 20px) 16px;
+      overflow-x: hidden;
+      transition: background-color 0.25s ease;
+    }
+
+    header {
+      width: 100%;
+      max-width: 440px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 4px;
+    }
+    .brand { font-size: 15px; font-weight: 700; letter-spacing: 1px; color: var(--text-dim); }
+    .brand span { color: var(--color-primary); }
+    .header-actions { display: flex; gap: 8px; }
+    .icon-btn {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      color: var(--text-main);
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: 0.15s;
+    }
+    .icon-btn:active { transform: scale(0.92); }
+
+    .nav-tabs {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      padding: 4px;
+      border-radius: 14px;
+      display: flex;
+      gap: 4px;
+      width: 100%;
+      max-width: 340px;
+      margin-bottom: 8px;
+    }
+    .tab-btn {
+      flex: 1;
+      padding: 8px 12px;
+      border: none;
+      background: transparent;
+      color: var(--text-dim);
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .tab
