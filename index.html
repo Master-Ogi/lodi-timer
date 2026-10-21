@@ -22,7 +22,7 @@
       --surface: #0f121a;
       --surface-border: #1a202c;
       --text-main: #f8fafc;
-      --text-dim: #828ca0;
+      --text-dim: #8a94a6;
       --color-primary: #ffb300;
       --color-primary-rgb: 255, 179, 0;
       --font-display: 'Plus Jakarta Sans', sans-serif;
@@ -61,24 +61,6 @@
       padding: env(safe-area-inset-top, 6px) 12px env(safe-area-inset-bottom, 12px) 12px;
     }
 
-    /* WHATSAPP IN-APP BROWSER DETECT BANNER */
-    .inapp-banner {
-      width: 100%;
-      max-width: 500px;
-      background: #ffb300;
-      color: #000;
-      font-size: 11px;
-      font-weight: 800;
-      padding: 6px 12px;
-      border-radius: 10px;
-      display: none;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 4px;
-      box-shadow: 0 4px 12px rgba(255, 179, 0, 0.3);
-    }
-    .inapp-banner.visible { display: flex; }
-
     header {
       width: 100%;
       max-width: 500px;
@@ -87,7 +69,7 @@
       justify-content: space-between;
       height: 42px;
     }
-    .brand { font-size: 15px; font-weight: 800; letter-spacing: 1px; color: var(--text-dim); }
+    .brand { font-size: 15px; font-weight: 900; letter-spacing: 1px; color: var(--text-dim); }
     .brand span { color: var(--color-primary); }
     .header-actions { display: flex; gap: 6px; }
     .icon-btn {
@@ -104,25 +86,6 @@
     }
     .icon-btn:active { transform: scale(0.92); }
 
-    /* SMART INSTALL CALLOUT BUTTON */
-    .install-callout-btn {
-      background: rgba(255, 179, 0, 0.12);
-      border: 1.5px solid var(--color-primary);
-      color: var(--color-primary);
-      width: 100%;
-      max-width: 440px;
-      padding: 8px 14px;
-      border-radius: 12px;
-      font-size: 12px;
-      font-weight: 800;
-      display: none;
-      align-items: center;
-      justify-content: space-between;
-      cursor: pointer;
-      margin-bottom: 6px;
-    }
-    .install-callout-btn.visible { display: flex; }
-
     .nav-tabs {
       background: var(--surface);
       border: 1px solid var(--surface-border);
@@ -132,7 +95,7 @@
       gap: 3px;
       width: 100%;
       max-width: 440px;
-      margin: 2px 0 6px 0;
+      margin: 4px 0 6px 0;
     }
     .tab-btn {
       flex: 1;
@@ -321,7 +284,7 @@
     }
     .preset-chip.active { border-color: var(--color-primary); color: #fff; }
 
-    /* MULTI-TIMER VIEW */
+    /* MULTI-TIMER VIEW: HORIZONTAL SPLIT CARDS */
     .multi-header-bar {
       width: 100%;
       display: flex;
@@ -344,52 +307,105 @@
     .timers-grid {
       width: 100%;
       flex: 1;
-      display: grid;
+      display: flex;
+      flex-direction: column;
       gap: 10px;
       align-content: start;
-      grid-template-columns: 1fr;
     }
-    .timers-grid.grid-duo { grid-template-columns: 1fr; }
-    .timers-grid.grid-multi { grid-template-columns: repeat(2, 1fr); }
 
     .timer-card {
       background: var(--surface);
       border: 1.5px solid var(--surface-border);
-      border-radius: 18px;
-      padding: 12px;
+      border-radius: 20px;
+      padding: 12px 14px;
       display: flex;
       flex-direction: column;
+      gap: 8px;
     }
-    .timer-card.overtime { border-color: #ff334b; box-shadow: 0 0 12px rgba(255, 51, 75, 0.25); }
-    .timer-card-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
-    .timer-card-tag { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 800; color: var(--text-main); }
-    .timer-card-close { background: none; border: none; color: #ff4757; font-size: 15px; cursor: pointer; padding: 2px 6px; }
-    .timer-card-body { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 4px 0; }
+    .timer-card.overtime {
+      border-color: #ff334b;
+      box-shadow: 0 0 14px rgba(255, 51, 75, 0.3);
+    }
+    .timer-card-split {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+    .timer-info-col {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      max-width: 50%;
+    }
+    .timer-name-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 15px;
+      font-weight: 800;
+      color: #fff;
+    }
+    .mode-switch-badge {
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--color-primary);
+      width: fit-content;
+      cursor: pointer;
+    }
+    .target-time-badge {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--color-primary);
+      letter-spacing: 0.5px;
+    }
+
+    .timer-digits-col {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      cursor: ns-resize;
+    }
     .timer-card-digits {
       font-family: var(--font-display);
-      font-size: 30px;
+      font-size: 38px;
       font-weight: 900;
       line-height: 1;
       font-variant-numeric: tabular-nums;
       color: var(--text-main);
     }
     .timer-card.overtime .timer-card-digits { color: #ff4d63; }
-    .timer-card-meta { font-size: 11px; font-weight: 700; color: var(--text-dim); margin-top: 4px; }
-    .timer-card-actions { display: flex; gap: 6px; margin-top: 8px; }
+    .timer-overtime-label {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      color: #ff4d63;
+      text-transform: uppercase;
+    }
+
+    .timer-card-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
     .card-btn {
-      flex: 1;
-      height: 36px;
-      border-radius: 10px;
+      height: 38px;
+      border-radius: 12px;
       border: none;
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 800;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
     }
-    .card-btn-primary { background: var(--color-primary); color: #000; }
-    .card-btn-sec { background: rgba(255, 255, 255, 0.08); color: var(--text-main); }
+    .card-btn-primary { flex: 1; background: var(--color-primary); color: #000; }
+    .card-btn-sec { width: 44px; background: rgba(255, 255, 255, 0.08); color: var(--text-main); }
+    .card-btn-del { width: 38px; background: rgba(255, 71, 87, 0.15); color: #ff4757; }
 
     /* FOOTER */
     footer {
@@ -462,8 +478,8 @@
     .drawer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
     .drawer-title { font-size: 16px; font-weight: 800; color: #fff; }
 
-    /* INFO & INSTALL GUIDE */
-    .lang-switcher { display: flex; gap: 6px; margin-bottom: 14px; }
+    /* ENHANCED INFO & INSTALL SHEET */
+    .lang-switcher { display: flex; gap: 6px; margin-bottom: 12px; }
     .lang-btn {
       flex: 1;
       height: 32px;
@@ -487,45 +503,81 @@
       gap: 10px;
     }
     .info-step-box {
-      background: rgba(255, 255, 255, 0.03);
+      background: #131722;
       border: 1px solid var(--surface-border);
-      border-radius: 12px;
-      padding: 10px 12px;
+      border-radius: 14px;
+      padding: 12px 14px;
     }
     .info-step-box strong { color: var(--color-primary); }
     .rtl-text { direction: rtl; text-align: right; }
 
-    /* SETTINGS ROW & TOGGLES */
+    /* FLOATING BOTTOM INSTALL SNACKBAR */
+    .install-floating-banner {
+      position: fixed;
+      bottom: calc(70px + env(safe-area-inset-bottom, 0px));
+      left: 16px;
+      right: 16px;
+      max-width: 440px;
+      margin: 0 auto;
+      background: #121622;
+      border: 1.5px solid var(--color-primary);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.8), 0 0 16px rgba(var(--color-primary-rgb), 0.3);
+      padding: 10px 14px;
+      border-radius: 16px;
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 90;
+    }
+    .install-floating-banner.visible { display: flex; }
+    .install-floating-content {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .install-icon-badge {
+      width: 32px;
+      height: 32px;
+      border-radius: 9px;
+      background: var(--color-primary);
+      color: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 18px;
+    }
+    .install-floating-title { font-size: 13px; font-weight: 800; color: #fff; }
+    .install-floating-sub { font-size: 10px; color: var(--text-dim); }
+    .install-floating-actions { display: flex; align-items: center; gap: 8px; }
+    .install-act-btn {
+      background: var(--color-primary);
+      border: none;
+      color: #000;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .install-close-btn {
+      background: none;
+      border: none;
+      color: var(--text-dim);
+      font-size: 16px;
+      cursor: pointer;
+      padding: 4px;
+    }
+
     .settings-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 10px 0;
+      padding: 12px 0;
       border-bottom: 1px solid var(--surface-border);
     }
     .settings-label { font-size: 13px; font-weight: 700; color: var(--text-main); }
     .settings-sub { font-size: 11px; color: var(--text-dim); margin-top: 2px; }
-    .toggle-switch {
-      position: relative;
-      display: inline-block;
-      width: 44px;
-      height: 24px;
-    }
-    .toggle-switch input { opacity: 0; width: 0; height: 0; }
-    .slider {
-      position: absolute; cursor: pointer; inset: 0;
-      background-color: #252c3d;
-      transition: .2s;
-      border-radius: 24px;
-    }
-    .slider:before {
-      position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px;
-      background-color: white;
-      transition: .2s;
-      border-radius: 50%;
-    }
-    input:checked + .slider { background-color: var(--color-primary); }
-    input:checked + .slider:before { transform: translateX(20px); background-color: #000; }
 
     .template-grid {
       display: grid;
@@ -616,19 +668,13 @@
 
   <div class="toast" id="toast">Link Copied!</div>
 
-  <!-- IN-APP BROWSER DETECT NOTICE -->
-  <div class="inapp-banner" id="inAppBanner">
-    <span>⚠️ Opened in WhatsApp. Tap <strong>⋮</strong> &rarr; <strong>Open in Chrome</strong> to install.</span>
-    <button style="background:none; border:none; color:#000; font-weight:900; font-size:14px; cursor:pointer;" id="closeInAppBanner">✕</button>
-  </div>
-
   <header>
     <div class="brand">LODI<span>TIMER</span></div>
     <div class="header-actions">
       <button class="icon-btn" id="shareAppBtn" title="Share App">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
       </button>
-      <button class="icon-btn" id="openInfoBtn" title="Install Guide & Info">
+      <button class="icon-btn" id="openInfoBtn" title="Installation Guide & Safety">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
       </button>
       <button class="icon-btn" id="openHistoryBtn" title="Session History">
@@ -640,11 +686,20 @@
     </div>
   </header>
 
-  <!-- 1-TAP INSTALL PROMPT BUTTON -->
-  <button class="install-callout-btn" id="installCalloutBtn">
-    <span>📲 Add App to Home Screen</span>
-    <span style="font-size: 10px; background: var(--color-primary); color: #000; padding: 2px 6px; border-radius: 6px;">INSTALL</span>
-  </button>
+  <!-- PROMINENT FLOATING INSTALL / SHORTCUT BANNER -->
+  <div class="install-floating-banner" id="installBanner">
+    <div class="install-floating-content">
+      <div class="install-icon-badge">↓</div>
+      <div>
+        <div class="install-floating-title">Add to Home Screen</div>
+        <div class="install-floating-sub">Launch edge-to-edge as a standalone app</div>
+      </div>
+    </div>
+    <div class="install-floating-actions">
+      <button class="install-act-btn" id="installBannerActionBtn">Install</button>
+      <button class="install-close-btn" id="closeInstallBanner" title="Dismiss">✕</button>
+    </div>
+  </div>
 
   <div class="nav-tabs">
     <button class="tab-btn active" id="tabRoutine">60s Routine</button>
@@ -652,7 +707,7 @@
     <button class="tab-btn" id="tabStopwatch">Stopwatch</button>
   </div>
 
-  <!-- VIEW 1: ROUTINE -->
+  <!-- VIEW 1: 60S SPINE ROUTINE -->
   <div class="view-panel active" id="panelRoutine">
     <div class="origin-badge" id="originBadge">ROUTINE: <span>60s</span></div>
 
@@ -692,7 +747,7 @@
     </div>
   </div>
 
-  <!-- VIEW 2: MULTI-TIMER -->
+  <!-- VIEW 2: MULTI-TIMER ENGINE -->
   <div class="view-panel" id="panelMulti">
     <div class="multi-header-bar">
       <div class="multi-tools">
@@ -729,10 +784,10 @@
 
   <div class="drawer-overlay" id="overlay"></div>
 
-  <!-- INFO & INSTALL GUIDE DRAWER -->
+  <!-- INSTALL GUIDE & PRIVACY DRAWER -->
   <div class="drawer" id="infoDrawer">
     <div class="drawer-header">
-      <div class="drawer-title" id="infoTitle">App Installation & Safety</div>
+      <div class="drawer-title" id="infoTitle">Installation & Safety</div>
       <button class="icon-btn" id="closeInfoBtn">✕</button>
     </div>
 
@@ -745,7 +800,7 @@
     <div class="info-content" id="infoContent"></div>
 
     <button class="btn btn-primary" id="drawerDirectInstallBtn" style="width:100%; height:44px; margin-top:12px; font-size:13px;">
-      📲 Install App Now
+      📲 Add App to Home Screen Now
     </button>
   </div>
 
@@ -786,10 +841,10 @@
     </div>
 
     <div style="font-size: 11px; font-weight: 800; color: var(--text-dim); text-transform: uppercase; margin: 12px 0 6px 0;">
-      Custom Timer
+      Custom Timer or Stopwatch
     </div>
     <div style="display:flex; gap:8px;">
-      <input type="text" id="customTimerName" placeholder="Timer Name" style="flex:1; background:#141824; border:1px solid #252e42; color:#fff; padding:10px 14px; border-radius:12px; font-weight:700; font-size:13px; outline:none;" />
+      <input type="text" id="customTimerName" placeholder="Item Name (e.g. Steak)" style="flex:1; background:#141824; border:1px solid #252e42; color:#fff; padding:10px 14px; border-radius:12px; font-weight:700; font-size:13px; outline:none;" />
       <input type="number" id="customTimerMins" placeholder="Mins" style="width:70px; background:#141824; border:1px solid #252e42; color:#fff; padding:10px; border-radius:12px; font-weight:800; font-size:14px; text-align:center; outline:none;" />
     </div>
     <button class="btn btn-primary" id="createCustomTimerBtn" style="width:100%; height:44px; margin-top:10px; font-size:13px;">Create Timer</button>
@@ -813,9 +868,9 @@
     <div class="drawer-header"><div class="drawer-title">Workout Summary</div><button class="icon-btn" id="closeSummaryBtn">✕</button></div>
     <div class="summary-card">
       <div class="summary-row"><span class="summary-label">Completed Sets</span><span class="summary-val highlight" id="sumSets">0</span></div>
-      <div class="summary-row"><span class="summary-label">Active Time</span><span class="summary-val" id="sumActiveTime">00:00</span></div>
-      <div class="summary-row"><span class="summary-label">Rest Time</span><span class="summary-val" id="sumRestTime">00:00</span></div>
-      <div class="summary-row" style="border-top: 1px solid var(--surface-border); padding-top: 8px;"><span class="summary-label" style="font-weight: 800; color: #fff;">Total Time</span><span class="summary-val highlight" id="sumTotalTime">00:00</span></div>
+      <div class="summary-row"><span class="summary-label">Active Routine Time</span><span class="summary-val" id="sumActiveTime">00:00</span></div>
+      <div class="summary-row"><span class="summary-label">Total Break / Rest</span><span class="summary-val" id="sumRestTime">00:00</span></div>
+      <div class="summary-row" style="border-top: 1px solid var(--surface-border); padding-top: 8px;"><span class="summary-label" style="font-weight: 800; color: #fff;">Total Session Duration</span><span class="summary-val highlight" id="sumTotalTime">00:00</span></div>
     </div>
     <button class="btn btn-primary" id="finishAndSaveBtn" style="width: 100%; height: 48px;">Complete & Save Session</button>
   </div>
@@ -827,25 +882,17 @@
       <button class="icon-btn" id="closeStudioBtn">✕</button>
     </div>
 
-    <!-- PWA Install Control in Settings -->
     <div class="settings-row">
       <div>
         <div class="settings-label">Home Screen Shortcut</div>
-        <div class="settings-sub">Display quick install button in main view</div>
+        <div class="settings-sub" id="installStatusSub">Install as a full standalone app</div>
       </div>
-      <label class="toggle-switch">
-        <input type="checkbox" id="toggleInstallBtnPref" checked>
-        <span class="slider"></span>
-      </label>
-    </div>
-
-    <div style="margin-top: 10px;">
-      <button class="btn btn-secondary" id="settingsInstallActionBtn" style="width: 100%; height: 40px; font-size: 12px; margin-bottom: 14px;">
-        📲 Install / Reinstall App Icon
+      <button class="multi-tool-btn" id="settingsInstallBtn" style="background:var(--color-primary); color:#000; font-weight:800; border-color:var(--color-primary);">
+        Install
       </button>
     </div>
 
-    <div style="font-size: 11px; text-transform: uppercase; font-weight: 700; color: var(--text-dim); margin-bottom: 6px;">Architecture</div>
+    <div style="font-size: 11px; text-transform: uppercase; font-weight: 700; color: var(--text-dim); margin: 14px 0 6px 0;">Architecture</div>
     <div class="style-grid">
       <div class="style-card selected" data-style="chrono">Chrono Minimal</div>
       <div class="style-card" data-style="ticks">Tachymeter Ticks</div>
@@ -853,7 +900,7 @@
       <div class="style-card" data-style="monolith">Solid Monolith</div>
     </div>
 
-    <div style="font-size: 11px; text-transform: uppercase; font-weight: 700; color: var(--text-dim); margin: 12px 0 6px 0;">Color</div>
+    <div style="font-size: 11px; text-transform: uppercase; font-weight: 700; color: var(--text-dim); margin: 12px 0 6px 0;">Color Luminescence</div>
     <div class="color-swatches">
       <div class="swatch selected" data-color="amber" style="background: #ffb300;"></div>
       <div class="swatch" data-color="green" style="background: #00e676;"></div>
@@ -885,37 +932,40 @@
   <script>
     if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
 
-    // IN-APP BROWSER (WHATSAPP) DETECTION
-    const ua = navigator.userAgent || navigator.vendor || window.opera;
-    const isWhatsApp = /WhatsApp/i.test(ua);
+    // PWA INSTALLATION ENGINE & AWARENESS
     const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
-
-    if (isWhatsApp) {
-      document.getElementById('inAppBanner').classList.add('visible');
-    }
-    document.getElementById('closeInAppBanner').addEventListener('click', () => {
-      document.getElementById('inAppBanner').classList.remove('visible');
-    });
-
-    // PWA DEFERRED INSTALL LOGIC
     let deferredPrompt = null;
-    const installCalloutBtn = document.getElementById('installCalloutBtn');
-    let showInstallPref = localStorage.getItem('lodi_show_install_btn') !== 'false';
+    const installBanner = document.getElementById('installBanner');
+    const settingsInstallBtn = document.getElementById('settingsInstallBtn');
+    const installStatusSub = document.getElementById('installStatusSub');
+
+    if (isStandalone) {
+      settingsInstallBtn.textContent = 'Installed ✓';
+      settingsInstallBtn.style.opacity = '0.6';
+      settingsInstallBtn.style.pointerEvents = 'none';
+      installStatusSub.textContent = 'App running in standalone mode';
+    } else {
+      const bannerDismissed = sessionStorage.getItem('lodi_banner_dismissed') === 'true';
+      if (!bannerDismissed) {
+        installBanner.classList.add('visible');
+      }
+    }
 
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       deferredPrompt = e;
-      if (!isStandalone && showInstallPref) {
-        installCalloutBtn.classList.add('visible');
+      if (!isStandalone && sessionStorage.getItem('lodi_banner_dismissed') !== 'true') {
+        installBanner.classList.add('visible');
       }
     });
 
-    async function triggerPWAInstall() {
+    async function executePWAInstall() {
       if (deferredPrompt) {
         deferredPrompt.prompt();
         const { outcome } = await deferredPrompt.userChoice;
         if (outcome === 'accepted') {
-          installCalloutBtn.classList.remove('visible');
+          installBanner.classList.remove('visible');
+          settingsInstallBtn.textContent = 'Installed ✓';
         }
         deferredPrompt = null;
       } else {
@@ -924,21 +974,13 @@
       }
     }
 
-    installCalloutBtn.addEventListener('click', triggerPWAInstall);
-    document.getElementById('drawerDirectInstallBtn').addEventListener('click', triggerPWAInstall);
-    document.getElementById('settingsInstallActionBtn').addEventListener('click', triggerPWAInstall);
+    document.getElementById('installBannerActionBtn').addEventListener('click', executePWAInstall);
+    document.getElementById('drawerDirectInstallBtn').addEventListener('click', executePWAInstall);
+    settingsInstallBtn.addEventListener('click', executePWAInstall);
 
-    // Toggle Install Button from Settings
-    const toggleInstallBtnPref = document.getElementById('toggleInstallBtnPref');
-    toggleInstallBtnPref.checked = showInstallPref;
-    toggleInstallBtnPref.addEventListener('change', (e) => {
-      showInstallPref = e.target.checked;
-      localStorage.setItem('lodi_show_install_btn', showInstallPref ? 'true' : 'false');
-      if (!showInstallPref) {
-        installCalloutBtn.classList.remove('visible');
-      } else if (!isStandalone && deferredPrompt) {
-        installCalloutBtn.classList.add('visible');
-      }
+    document.getElementById('closeInstallBanner').addEventListener('click', () => {
+      installBanner.classList.remove('visible');
+      sessionStorage.setItem('lodi_banner_dismissed', 'true');
     });
 
     let activeTab = 'routine';
@@ -1004,7 +1046,6 @@
       if (wakeLock) { wakeLock.release().catch(() => {}); wakeLock = null; }
     }
 
-    // Dial ticks
     const ticksContainer = document.getElementById('ticksContainer');
     for (let i = 0; i < 60; i++) {
       const tick = document.createElement('div');
@@ -1028,7 +1069,7 @@
       const totalElapsedBadge = document.getElementById('totalElapsedBadge');
       const subHint = document.getElementById('subHint');
 
-      originBadge.innerHTML = targetSeconds === 60 ? 'ROUTINE: <span>60s</span>' : `ORIGINAL: <span>${formatTime(targetSeconds)}</span>`;
+      originBadge.innerHTML = targetSeconds === 60 ? 'ROUTINE: <span>60s</span>' : `TARGET: <span>${formatTime(targetSeconds)}</span>`;
 
       if (timerState === 'resting') {
         mainDigits.textContent = formatTime(restSeconds);
@@ -1115,10 +1156,10 @@
       releaseWakeLock();
     }
 
-    // MULTI-TIMER ENGINE
+    // MULTI-TIMER ENGINE: HORIZONTAL SPLIT WITH STOPWATCH TOGGLE
     let multiTimers = [
-      { id: 1, name: 'Pasta', icon: '🍝', target: 660, remaining: 660, overtime: 0, state: 'idle' },
-      { id: 2, name: 'Rice', icon: '🍚', target: 1080, remaining: 1080, overtime: 0, state: 'idle' }
+      { id: 1, name: 'Pasta', icon: '🍝', type: 'timer', target: 660, remaining: 660, elapsed: 0, overtime: 0, state: 'idle' },
+      { id: 2, name: 'Rice', icon: '🍚', type: 'timer', target: 1080, remaining: 1080, elapsed: 0, overtime: 0, state: 'idle' }
     ];
     let multiInterval = null;
     let pendingDeleteId = null;
@@ -1126,26 +1167,41 @@
     function renderMultiTimers() {
       const grid = document.getElementById('timersGrid');
       grid.innerHTML = '';
-      grid.className = 'timers-grid ' + (multiTimers.length <= 1 ? '' : multiTimers.length === 2 ? 'grid-duo' : 'grid-multi');
 
       multiTimers.forEach(t => {
-        const isOvertime = t.state === 'overtime';
+        const isTimer = t.type === 'timer';
+        const isOvertime = isTimer && t.state === 'overtime';
         const card = document.createElement('div');
         card.className = `timer-card ${isOvertime ? 'overtime' : ''}`;
+        
+        const displayTime = isTimer 
+          ? (isOvertime ? '+' + formatTime(t.overtime) : formatTime(t.remaining))
+          : formatTime(t.elapsed);
+
         card.innerHTML = `
-          <div class="timer-card-head">
-            <div class="timer-card-tag">${t.icon} ${t.name}</div>
-            <button class="timer-card-close" data-del="${t.id}" title="Delete">✕</button>
+          <div class="timer-card-split">
+            <div class="timer-info-col">
+              <div class="timer-name-row">${t.icon} ${t.name}</div>
+              <div class="mode-switch-badge" data-mode-toggle="${t.id}">
+                ${isTimer ? '⏳ Timer Mode' : '⏱️ Stopwatch'}
+              </div>
+              <div class="target-time-badge">
+                ${isTimer ? (isOvertime ? 'TOTAL ' + formatTime(t.target + t.overtime) : 'TARGET ' + formatTime(t.target)) : 'COUNT UP'}
+              </div>
+            </div>
+
+            <div class="timer-digits-col" data-scrub="${t.id}">
+              <div class="timer-card-digits">${displayTime}</div>
+              ${isOvertime ? '<div class="timer-overtime-label">Overtime</div>' : '<div style="font-size:10px; color:var(--text-dim); text-transform:uppercase;">Scroll to Edit</div>'}
+            </div>
           </div>
-          <div class="timer-card-body">
-            <div class="timer-card-digits">${isOvertime ? '+' + formatTime(t.overtime) : formatTime(t.remaining)}</div>
-            <div class="timer-card-meta">${isOvertime ? 'TOTAL ' + formatTime(t.target + t.overtime) : 'ORIGINAL ' + formatTime(t.target)}</div>
-          </div>
+
           <div class="timer-card-actions">
-            <button class="card-btn card-btn-sec" data-act="reset" data-id="${t.id}">↺</button>
+            <button class="card-btn card-btn-sec" data-act="reset" data-id="${t.id}" title="Reset">↺</button>
             <button class="card-btn card-btn-primary" data-act="toggle" data-id="${t.id}">
               ${t.state === 'running' || t.state === 'overtime' ? 'PAUSE' : 'START'}
             </button>
+            <button class="card-btn card-btn-del" data-del="${t.id}" title="Delete">✕</button>
           </div>
         `;
         grid.appendChild(card);
@@ -1159,13 +1215,17 @@
         multiTimers.forEach(t => {
           if (t.state === 'running') {
             hasActive = true;
-            if (t.remaining > 1) {
-              t.remaining--;
+            if (t.type === 'timer') {
+              if (t.remaining > 1) {
+                t.remaining--;
+              } else {
+                t.remaining = 0;
+                t.state = 'overtime';
+                playTone(880, 0.35, 'square', 0.5);
+                if ('vibrate' in navigator) navigator.vibrate([200, 100, 200]);
+              }
             } else {
-              t.remaining = 0;
-              t.state = 'overtime';
-              playTone(880, 0.35, 'square', 0.5);
-              if ('vibrate' in navigator) navigator.vibrate([200, 100, 200]);
+              t.elapsed++;
             }
           } else if (t.state === 'overtime') {
             hasActive = true;
@@ -1180,6 +1240,21 @@
     }
 
     document.getElementById('timersGrid').addEventListener('click', (e) => {
+      const modeToggle = e.target.closest('[data-mode-toggle]');
+      if (modeToggle) {
+        const id = parseInt(modeToggle.dataset.modeToggle);
+        const timer = multiTimers.find(t => t.id === id);
+        if (timer) {
+          timer.type = timer.type === 'timer' ? 'stopwatch' : 'timer';
+          timer.state = 'idle';
+          timer.remaining = timer.target;
+          timer.overtime = 0;
+          timer.elapsed = 0;
+          renderMultiTimers();
+        }
+        return;
+      }
+
       const delBtn = e.target.closest('[data-del]');
       if (delBtn) {
         pendingDeleteId = parseInt(delBtn.dataset.del);
@@ -1198,7 +1273,7 @@
 
       if (actBtn.dataset.act === 'toggle') {
         if (timer.state === 'idle' || timer.state === 'paused') {
-          timer.state = timer.remaining === 0 ? 'overtime' : 'running';
+          timer.state = (timer.type === 'timer' && timer.remaining === 0) ? 'overtime' : 'running';
           initMultiInterval();
         } else if (timer.state === 'running' || timer.state === 'overtime') {
           timer.state = 'paused';
@@ -1206,14 +1281,32 @@
       } else if (actBtn.dataset.act === 'reset') {
         timer.remaining = timer.target;
         timer.overtime = 0;
+        timer.elapsed = 0;
         timer.state = 'idle';
       }
       renderMultiTimers();
     });
 
+    // In-card scroll wheel scrubbing for target adjustment
+    document.getElementById('timersGrid').addEventListener('wheel', (e) => {
+      const scrubCol = e.target.closest('[data-scrub]');
+      if (!scrubCol) return;
+      const id = parseInt(scrubCol.dataset.scrub);
+      const timer = multiTimers.find(t => t.id === id);
+      if (!timer || timer.state !== 'idle' || timer.type !== 'timer') return;
+      e.preventDefault();
+      timer.target = Math.max(30, timer.target + (e.deltaY < 0 ? 30 : -30));
+      timer.remaining = timer.target;
+      renderMultiTimers();
+    }, { passive: false });
+
     document.getElementById('startAllBtn').addEventListener('click', () => {
       getAudioContext();
-      multiTimers.forEach(t => { if (t.state === 'idle' || t.state === 'paused') t.state = t.remaining === 0 ? 'overtime' : 'running'; });
+      multiTimers.forEach(t => {
+        if (t.state === 'idle' || t.state === 'paused') {
+          t.state = (t.type === 'timer' && t.remaining === 0) ? 'overtime' : 'running';
+        }
+      });
       initMultiInterval();
       renderMultiTimers();
     });
@@ -1222,7 +1315,7 @@
       renderMultiTimers();
     });
     document.getElementById('resetAllBtn').addEventListener('click', () => {
-      multiTimers.forEach(t => { t.remaining = t.target; t.overtime = 0; t.state = 'idle'; });
+      multiTimers.forEach(t => { t.remaining = t.target; t.overtime = 0; t.elapsed = 0; t.state = 'idle'; });
       renderMultiTimers();
     });
 
@@ -1236,8 +1329,10 @@
         id: Date.now(),
         name: card.dataset.title,
         icon: card.dataset.icon,
+        type: 'timer',
         target: parseInt(card.dataset.time),
         remaining: parseInt(card.dataset.time),
+        elapsed: 0,
         overtime: 0,
         state: 'idle'
       });
@@ -1252,8 +1347,10 @@
         id: Date.now(),
         name,
         icon: '⏱️',
+        type: 'timer',
         target: mins * 60,
         remaining: mins * 60,
+        elapsed: 0,
         overtime: 0,
         state: 'idle'
       });
@@ -1558,47 +1655,47 @@
       }
     });
 
-    // 3-LANGUAGE INFO
+    // 3-LANGUAGE INFO & PRIVACY
     const infoTexts = {
       en: {
-        title: "Installation & Privacy",
+        title: "Installation & Safety",
         body: `
           <div class="info-step-box">
             <strong>1. Android (Chrome)</strong><br/>
-            Tap <strong>"📲 Add App to Home Screen"</strong> or tap Chrome's <strong>3 dots (⋮)</strong> &rarr; <strong>"Install app"</strong>. Opens edge-to-edge with no address bar.
+            Tap <strong>"Install"</strong> on the bottom bar, or tap Chrome's <strong>3 dots (⋮)</strong> &rarr; <strong>"Install app"</strong>. Opens edge-to-edge without address bars.
           </div>
           <div class="info-step-box">
             <strong>2. Opened via WhatsApp?</strong><br/>
-            Tap the <strong>3 dots (⋮) in WhatsApp's top header</strong> &rarr; <strong>"Open in Chrome"</strong> so you can install it cleanly.
+            Tap the <strong>3 dots (⋮) in WhatsApp's top header</strong> &rarr; <strong>"Open in Chrome"</strong> so you can install the standalone app.
           </div>
           <div class="info-step-box">
             <strong>3. iPhone / iPad (Safari)</strong><br/>
-            Tap <strong>Share</strong> (box with arrow) &rarr; <strong>"Add to Home Screen"</strong>.
+            Tap <strong>Share</strong> (square with up arrow) &rarr; scroll down &rarr; <strong>"Add to Home Screen"</strong>.
           </div>
           <div class="info-step-box">
-            <strong>4. 100% Private & Safe</strong><br/>
-            Zero tracking, zero cookies, runs 100% offline via local storage.
+            <strong>4. 100% Private & Verified</strong><br/>
+            No trackers, no cookies, zero external analytics. Works completely offline.
           </div>
         `
       },
       pl: {
-        title: "Instalacja i Prywatność",
+        title: "Instalacja i Bezpieczeństwo",
         body: `
           <div class="info-step-box">
             <strong>1. Android (Chrome)</strong><br/>
-            Kliknij <strong>"📲 Dodaj aplikację do ekranu głównego"</strong> lub <strong>3 pionowe kropki (⋮)</strong> w Chrome &rarr; <strong>"Zainstaluj aplikację"</strong>.
+            Kliknij <strong>"Zainstaluj"</strong> na dolnym pasku lub <strong>3 pionowe kropki (⋮)</strong> w Chrome &rarr; <strong>"Zainstaluj aplikację"</strong>.
           </div>
           <div class="info-step-box">
-            <strong>2. Otwarto z WhatsApp?</strong><br/>
+            <strong>2. Otwarto przez WhatsApp?</strong><br/>
             Kliknij <strong>3 kropki (⋮) w nagłówku WhatsApp</strong> &rarr; <strong>"Otwórz w Chrome"</strong>, aby zainstalować aplikację.
           </div>
           <div class="info-step-box">
             <strong>3. iPhone / iPad (Safari)</strong><br/>
-            Kliknij <strong>Udostępnij</strong> &rarr; <strong>"Do ekranu początkowego"</strong>.
+            Kliknij <strong>Udostępnij</strong> (kwadrat ze strzałką) &rarr; <strong>"Do ekranu początkowego"</strong>.
           </div>
           <div class="info-step-box">
-            <strong>4. Pełna prywatność</strong><br/>
-            Zero reklam, zero śledzenia, działa w 100% offline.
+            <strong>4. 100% Prywatności</strong><br/>
+            Zero reklam, brak śledzenia, działa w 100% offline w pamięci telefonu.
           </div>
         `
       },
@@ -1607,19 +1704,19 @@
         body: `
           <div class="info-step-box rtl-text">
             <strong>1. מכשירי אנדרואיד (Chrome)</strong><br/>
-            לחץ על <strong>"📲 הוסף אפליקציה למסך הבית"</strong> או על <strong>3 הנקודות (⋮)</strong> ב-Chrome &larr; <strong>"התקנת אפליקציה"</strong>. נפתח במסך מלא ללא שורת כתובת.
+            לחץ על <strong>"התקנה"</strong> בסרגל התחתון או על <strong>3 הנקודות (⋮)</strong> ב-Chrome &larr; <strong>"התקנת אפליקציה"</strong>. נפתח במסך מלא ללא שורת כתובת.
           </div>
           <div class="info-step-box rtl-text">
             <strong>2. נפתח דרך וואטסאפ?</strong><br/>
-            לחץ על <strong>3 הנקודות (⋮) בראש המסך בוואטסאפ</strong> &larr; <strong>"פתח ב-Chrome"</strong> כדי לאפשר התקנה תקינה.
+            לחץ על <strong>3 הנקודות (⋮) בראש המסך בוואטסאפ</strong> &larr; <strong>"פתח ב-Chrome"</strong> כדי לאפשר התקנה.
           </div>
           <div class="info-step-box rtl-text">
             <strong>3. אייפון / אייפד (Safari)</strong><br/>
-            לחץ על <strong>שיתוף</strong> &larr; <strong>"הוסף למסך הבית"</strong>.
+            לחץ על <strong>שיתוף</strong> (ריבוע עם חץ כלפי מעלה) &larr; גלול ובחר <strong>"הוסף למסך הבית"</strong>.
           </div>
           <div class="info-step-box rtl-text">
-            <strong>4. בטוח ופרטי ב-100%</strong><br/>
-            ללא פרסומות, ללא מעקב, ופועל במלואו ללא אינטרנט.
+            <strong>4. פרטיות מלאה ואבטחה</strong><br/>
+            ללא פרסומות, ללא מעקב וללא שמירת מידע בשרתים. פועל גם ללא אינטרנט.
           </div>
         `
       }
@@ -1645,7 +1742,7 @@
     });
     document.getElementById('closeInfoBtn').addEventListener('click', closeAllDrawers);
 
-    // INIT PREFERENCES
+    // PREFERENCES
     (function initPrefs() {
       const savedStyle = localStorage.getItem('lodi_default_style') || 'chrono';
       const savedColor = localStorage.getItem('lodi_default_color') || 'amber';
