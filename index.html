@@ -1,3 +1,4 @@
+HTML
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +16,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #050608;
@@ -58,27 +59,27 @@
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
-      padding: env(safe-area-inset-top, 10px) 14px env(safe-area-inset-bottom, 14px) 14px;
+      padding: env(safe-area-inset-top, 8px) 12px env(safe-area-inset-bottom, 12px) 12px;
     }
 
     header {
       width: 100%;
-      max-width: 440px;
+      max-width: 500px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 44px;
+      height: 42px;
     }
     .brand { font-size: 15px; font-weight: 800; letter-spacing: 1px; color: var(--text-dim); }
     .brand span { color: var(--color-primary); }
-    .header-actions { display: flex; gap: 8px; }
+    .header-actions { display: flex; gap: 6px; }
     .icon-btn {
       background: var(--surface);
       border: 1px solid var(--surface-border);
       color: var(--text-main);
-      width: 38px;
-      height: 38px;
-      border-radius: 12px;
+      width: 36px;
+      height: 36px;
+      border-radius: 11px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -92,18 +93,18 @@
       padding: 3px;
       border-radius: 12px;
       display: flex;
-      gap: 4px;
+      gap: 3px;
       width: 100%;
-      max-width: 320px;
-      margin: 4px 0;
+      max-width: 440px;
+      margin: 4px 0 8px 0;
     }
     .tab-btn {
       flex: 1;
-      padding: 6px 10px;
+      padding: 7px 8px;
       border: none;
       background: transparent;
       color: var(--text-dim);
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 700;
       border-radius: 9px;
       cursor: pointer;
@@ -113,31 +114,35 @@
       color: var(--text-main);
     }
 
-    main {
+    .view-panel {
       flex: 1;
-      display: flex;
+      width: 100%;
+      max-width: 500px;
+      display: none;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      width: 100%;
-      max-width: 440px;
       position: relative;
-      gap: 10px;
+      overflow-y: auto;
+      scrollbar-width: none;
     }
+    .view-panel::-webkit-scrollbar { display: none; }
+    .view-panel.active { display: flex; }
 
+    /* ROUTINE STYLES */
     .origin-badge {
       font-size: 11px;
       font-weight: 800;
       letter-spacing: 1px;
       color: var(--text-dim);
       text-transform: uppercase;
-      min-height: 14px;
+      margin-bottom: 6px;
     }
     .origin-badge span { color: var(--color-primary); }
 
     .dial-stage {
-      width: min(72vw, 290px);
-      height: min(72vw, 290px);
+      width: min(70vw, 275px);
+      height: min(70vw, 275px);
       position: relative;
       display: flex;
       align-items: center;
@@ -147,15 +152,7 @@
       cursor: ns-resize;
       touch-action: pan-x;
     }
-
-    .dial-svg {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-    }
+    .dial-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
     .ring-bg { fill: none; stroke: var(--dial-border-color); stroke-width: 6; }
     .ring-progress {
       fill: none;
@@ -167,11 +164,9 @@
       transition: stroke-dashoffset 0.25s linear, stroke 0.3s ease;
       filter: drop-shadow(0 0 8px rgba(var(--color-primary-rgb), 0.5));
     }
-
     .ticks-container { position: absolute; width: 100%; height: 100%; pointer-events: none; display: none; }
     body.style-ticks .ticks-container { display: block; }
     body.style-ticks .ring-progress, body.style-ticks .ring-bg { display: none; }
-
     .tick {
       position: absolute;
       top: 50%;
@@ -179,7 +174,7 @@
       width: 2px;
       height: 10px;
       background: rgba(255, 255, 255, 0.15);
-      transform-origin: center -128px;
+      transform-origin: center -122px;
       border-radius: 1px;
     }
     .tick.active { background: var(--color-primary); box-shadow: 0 0 5px rgba(var(--color-primary-rgb), 0.7); }
@@ -208,7 +203,7 @@
 
     .main-digits {
       font-family: var(--font-display);
-      font-size: clamp(64px, 18vw, 84px);
+      font-size: clamp(62px, 17vw, 82px);
       font-weight: 900;
       line-height: 0.95;
       color: var(--text-main);
@@ -216,12 +211,7 @@
     }
     body.style-monolith .main-digits { color: #000; }
 
-    .sub-hint {
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--text-dim);
-      margin-top: 6px;
-    }
+    .sub-hint { font-size: 11px; font-weight: 600; color: var(--text-dim); margin-top: 6px; }
     body.style-monolith .sub-hint { color: rgba(0, 0, 0, 0.6); }
 
     .total-elapsed-badge {
@@ -244,14 +234,14 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      margin-top: 2px;
+      margin-top: 8px;
       visibility: hidden;
       opacity: 0;
       transition: 0.25s;
     }
     .sets-banner.visible { visibility: visible; opacity: 1; }
     .sets-banner .label { font-size: 11px; font-weight: 800; color: var(--text-dim); letter-spacing: 1px; text-transform: uppercase; }
-    .sets-banner .val { font-size: 20px; font-weight: 900; color: var(--color-primary); font-family: var(--font-display); }
+    .sets-banner .val { font-size: 22px; font-weight: 900; color: var(--color-primary); font-family: var(--font-display); }
 
     .quick-adjust {
       display: flex;
@@ -259,6 +249,7 @@
       justify-content: center;
       gap: 6px;
       width: 100%;
+      margin-top: 10px;
     }
     .pill-btn {
       background: var(--surface);
@@ -278,7 +269,7 @@
       gap: 6px;
       overflow-x: auto;
       scrollbar-width: none;
-      padding: 2px 0;
+      padding: 8px 0 2px 0;
     }
     .presets-carousel::-webkit-scrollbar { display: none; }
     .preset-chip {
@@ -287,25 +278,96 @@
       color: var(--text-dim);
       font-size: 11px;
       font-weight: 700;
-      padding: 7px 12px;
+      padding: 6px 11px;
       border-radius: 10px;
       white-space: nowrap;
       cursor: pointer;
     }
     .preset-chip.active { border-color: var(--color-primary); color: #fff; }
 
+    /* MULTI-TIMER VIEW */
+    .multi-header-bar {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      gap: 6px;
+    }
+    .multi-tools { display: flex; gap: 6px; }
+    .multi-tool-btn {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      color: var(--text-dim);
+      font-size: 11px;
+      font-weight: 800;
+      padding: 6px 10px;
+      border-radius: 9px;
+      cursor: pointer;
+    }
+    .timers-grid {
+      width: 100%;
+      flex: 1;
+      display: grid;
+      gap: 10px;
+      align-content: start;
+      grid-template-columns: 1fr;
+    }
+    .timers-grid.grid-duo { grid-template-columns: 1fr; }
+    .timers-grid.grid-multi { grid-template-columns: repeat(2, 1fr); }
+
+    .timer-card {
+      background: var(--surface);
+      border: 1.5px solid var(--surface-border);
+      border-radius: 18px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+    }
+    .timer-card.overtime { border-color: #ff334b; box-shadow: 0 0 12px rgba(255, 51, 75, 0.25); }
+    .timer-card-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+    .timer-card-tag { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 800; color: var(--text-main); }
+    .timer-card-close { background: none; border: none; color: #ff4757; font-size: 15px; cursor: pointer; padding: 2px 6px; }
+    .timer-card-body { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 4px 0; }
+    .timer-card-digits {
+      font-family: var(--font-display);
+      font-size: 32px;
+      font-weight: 900;
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+      color: var(--text-main);
+    }
+    .timer-card.overtime .timer-card-digits { color: #ff4d63; }
+    .timer-card-meta { font-size: 11px; font-weight: 700; color: var(--text-dim); margin-top: 4px; }
+    .timer-card-actions { display: flex; gap: 6px; margin-top: 8px; }
+    .card-btn {
+      flex: 1;
+      height: 36px;
+      border-radius: 10px;
+      border: none;
+      font-size: 12px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .card-btn-primary { background: var(--color-primary); color: #000; }
+    .card-btn-sec { background: rgba(255, 255, 255, 0.08); color: var(--text-main); }
+
+    /* FOOTER */
     footer {
       width: 100%;
-      max-width: 440px;
+      max-width: 500px;
       display: flex;
       gap: 8px;
       padding-top: 6px;
     }
     .btn {
-      height: 52px;
+      height: 50px;
       border-radius: 16px;
       border: none;
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 800;
       letter-spacing: 0.5px;
       cursor: pointer;
@@ -322,12 +384,7 @@
       color: #000;
       box-shadow: 0 4px 14px rgba(var(--color-primary-rgb), 0.35);
     }
-    .btn-secondary {
-      background: var(--surface);
-      border: 1px solid var(--surface-border);
-      color: var(--text-main);
-      padding: 0 16px;
-    }
+    .btn-secondary { background: var(--surface); border: 1px solid var(--surface-border); color: var(--text-main); padding: 0 16px; }
     .btn-end {
       background: rgba(255, 51, 75, 0.15);
       border: 1px solid rgba(255, 51, 75, 0.35);
@@ -339,6 +396,7 @@
     }
     .btn-end.visible { display: flex; }
 
+    /* DRAWERS */
     .drawer {
       position: fixed;
       bottom: -100%;
@@ -347,7 +405,7 @@
       background: #0d1017;
       border-top: 1px solid #1e2638;
       border-radius: 24px 24px 0 0;
-      padding: 20px 20px calc(20px + env(safe-area-inset-bottom, 0px)) 20px;
+      padding: 18px 18px calc(18px + env(safe-area-inset-bottom, 0px)) 18px;
       z-index: 100;
       transition: bottom 0.28s cubic-bezier(0.16, 1, 0.3, 1);
       max-width: 480px;
@@ -365,91 +423,166 @@
       transition: opacity 0.2s;
     }
     .drawer-overlay.open { opacity: 1; pointer-events: auto; }
-    .drawer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
-    .drawer-title { font-size: 17px; font-weight: 800; color: #fff; }
+    .drawer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .drawer-title { font-size: 16px; font-weight: 800; color: #fff; }
+
+    /* INFO & INSTALL MODAL */
+    .lang-switcher {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+    .lang-btn {
+      flex: 1;
+      height: 32px;
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      color: var(--text-dim);
+      font-size: 12px;
+      font-weight: 700;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .lang-btn.active {
+      background: var(--color-primary);
+      color: #000;
+      border-color: var(--color-primary);
+    }
+    .info-content {
+      max-height: 320px;
+      overflow-y: auto;
+      font-size: 13px;
+      line-height: 1.5;
+      color: #c4cddf;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .info-step-box {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--surface-border);
+      border-radius: 12px;
+      padding: 10px 12px;
+    }
+    .info-step-box strong { color: var(--color-primary); }
+    .rtl-text { direction: rtl; text-align: right; }
+
+    /* TEMPLATE POPOVER */
+    .template-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      max-height: 260px;
+      overflow-y: auto;
+      padding: 4px 0;
+    }
+    .template-card {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: 14px;
+      padding: 10px 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .template-card:active { border-color: var(--color-primary); background: rgba(255, 255, 255, 0.05); }
+    .template-icon { font-size: 22px; }
+    .template-name { font-size: 13px; font-weight: 700; color: var(--text-main); }
+    .template-time { font-size: 11px; font-weight: 600; color: var(--text-dim); }
 
     .summary-card {
       background: var(--surface);
       border: 1px solid var(--surface-border);
       border-radius: 16px;
-      padding: 16px;
+      padding: 14px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      margin-bottom: 16px;
+      gap: 10px;
+      margin-bottom: 14px;
     }
     .summary-row { display: flex; justify-content: space-between; align-items: center; }
-    .summary-label { font-size: 13px; font-weight: 600; color: var(--text-dim); }
-    .summary-val { font-size: 17px; font-weight: 800; color: var(--text-main); font-variant-numeric: tabular-nums; }
-    .summary-val.highlight { color: var(--color-primary); font-size: 20px; }
+    .summary-label { font-size: 12px; font-weight: 600; color: var(--text-dim); }
+    .summary-val { font-size: 16px; font-weight: 800; color: var(--text-main); }
+    .summary-val.highlight { color: var(--color-primary); font-size: 18px; }
 
     .style-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
     .style-card {
       background: var(--surface);
       border: 1px solid var(--surface-border);
-      padding: 12px;
+      padding: 10px;
       border-radius: 12px;
       cursor: pointer;
       text-align: center;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 700;
       color: var(--text-dim);
     }
     .style-card.selected { border-color: var(--color-primary); color: #fff; background: rgba(255, 255, 255, 0.05); }
 
-    .color-swatches { display: flex; gap: 10px; margin-top: 8px; }
-    .swatch {
-      flex: 1;
-      height: 38px;
-      border-radius: 10px;
-      cursor: pointer;
-      border: 2px solid transparent;
-    }
+    .color-swatches { display: flex; gap: 8px; margin-top: 8px; }
+    .swatch { flex: 1; height: 36px; border-radius: 10px; cursor: pointer; border: 2px solid transparent; }
     .swatch.selected { border-color: #fff; }
 
-    .roller-modal-body { display: flex; justify-content: center; align-items: center; gap: 14px; padding: 14px 0; }
+    .roller-modal-body { display: flex; justify-content: center; align-items: center; gap: 12px; padding: 12px 0; }
     .roller-col select {
       background: #141824;
       border: 1px solid #252e42;
       color: #fff;
-      font-size: 26px;
+      font-size: 24px;
       font-weight: 800;
-      padding: 8px 14px;
+      padding: 6px 12px;
       border-radius: 12px;
     }
 
-    .history-list { max-height: 200px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
-    .history-item {
-      background: var(--surface);
-      border: 1px solid var(--surface-border);
-      border-radius: 12px;
-      padding: 10px 14px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    .toast {
+      position: fixed;
+      top: 18px;
+      background: #ffb300;
+      color: #000;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: 800;
+      font-size: 13px;
+      z-index: 200;
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: all 0.25s ease;
+      pointer-events: none;
     }
+    .toast.show { opacity: 1; transform: translateY(0); }
   </style>
 </head>
 <body class="style-chrono color-amber">
 
+  <div class="toast" id="toast">Link Copied!</div>
+
   <header>
     <div class="brand">LODI<span>TIMER</span></div>
     <div class="header-actions">
+      <button class="icon-btn" id="shareAppBtn" title="Share App">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      </button>
+      <button class="icon-btn" id="openInfoBtn" title="Install Guide & Info">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+      </button>
       <button class="icon-btn" id="openHistoryBtn" title="Session History">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
       </button>
-      <button class="icon-btn" id="openStudioBtn" title="Theme Studio">
+      <button class="icon-btn" id="openStudioBtn" title="Dial Studio">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
       </button>
     </div>
   </header>
 
   <div class="nav-tabs">
-    <button class="tab-btn active" id="tabCountdown">Countdown</button>
+    <button class="tab-btn active" id="tabRoutine">60s Routine</button>
+    <button class="tab-btn" id="tabMulti">Multi-Timer</button>
     <button class="tab-btn" id="tabStopwatch">Stopwatch</button>
   </div>
 
-  <main>
+  <!-- VIEW 1: ROUTINE -->
+  <div class="view-panel active" id="panelRoutine">
     <div class="origin-badge" id="originBadge">ROUTINE: <span>60s</span></div>
 
     <div class="dial-stage" id="dialStage">
@@ -486,8 +619,35 @@
       <button class="preset-chip" data-time="660">🍝 11m Pasta</button>
       <button class="preset-chip" data-time="240">🫖 4m Tea</button>
     </div>
-  </main>
+  </div>
 
+  <!-- VIEW 2: MULTI-TIMER -->
+  <div class="view-panel" id="panelMulti">
+    <div class="multi-header-bar">
+      <div class="multi-tools">
+        <button class="multi-tool-btn" id="startAllBtn">▶ Start All</button>
+        <button class="multi-tool-btn" id="pauseAllBtn">⏸ Pause All</button>
+        <button class="multi-tool-btn" id="resetAllBtn">↺ Reset All</button>
+      </div>
+      <button class="multi-tool-btn" id="openAddTimerModal" style="background: var(--color-primary); color: #000; border-color: var(--color-primary);">
+        + Add Timer ⭐
+      </button>
+    </div>
+    <div class="timers-grid" id="timersGrid"></div>
+  </div>
+
+  <!-- VIEW 3: STOPWATCH -->
+  <div class="view-panel" id="panelStopwatch">
+    <div class="dial-stage">
+      <div class="dial-content">
+        <div class="state-badge">STOPWATCH</div>
+        <div class="main-digits" id="stopwatchDigits">00:00</div>
+        <div class="sub-hint">count-up mode</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
   <footer>
     <button class="btn btn-secondary" id="resetBtn" title="Reset">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 109-9 9.75 9.75 0 00-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
@@ -498,47 +658,107 @@
 
   <div class="drawer-overlay" id="overlay"></div>
 
-  <!-- Session Summary Drawer -->
-  <div class="drawer" id="summaryDrawer">
+  <!-- INFO & INSTALL GUIDE DRAWER -->
+  <div class="drawer" id="infoDrawer">
     <div class="drawer-header">
-      <div class="drawer-title">Workout Summary</div>
-      <button class="icon-btn" id="closeSummaryBtn">✕</button>
+      <div class="drawer-title" id="infoTitle">App Installation & Safety</div>
+      <button class="icon-btn" id="closeInfoBtn">✕</button>
     </div>
-    <div class="summary-card">
-      <div class="summary-row">
-        <span class="summary-label">Completed Sets</span>
-        <span class="summary-val highlight" id="sumSets">0</span>
-      </div>
-      <div class="summary-row">
-        <span class="summary-label">Active Exercise Time</span>
-        <span class="summary-val" id="sumActiveTime">00:00</span>
-      </div>
-      <div class="summary-row">
-        <span class="summary-label">Total Break / Rest Time</span>
-        <span class="summary-val" id="sumRestTime">00:00</span>
-      </div>
-      <div class="summary-row" style="border-top: 1px solid var(--surface-border); padding-top: 10px; margin-top: 2px;">
-        <span class="summary-label" style="font-weight: 800; color: #fff;">Total Routine Duration</span>
-        <span class="summary-val highlight" id="sumTotalTime">00:00</span>
-      </div>
+
+    <!-- LANGUAGE SWITCHER -->
+    <div class="lang-switcher">
+      <button class="lang-btn active" data-lang="en">English</button>
+      <button class="lang-btn" data-lang="pl">Polski</button>
+      <button class="lang-btn" data-lang="he">עברית</button>
     </div>
-    <button class="btn btn-primary" id="finishAndSaveBtn" style="width: 100%; height: 50px;">Complete & Save Session</button>
+
+    <div class="info-content" id="infoContent">
+      <!-- Injected dynamically based on language -->
+    </div>
   </div>
 
-  <!-- Studio Drawer -->
-  <div class="drawer" id="studioDrawer">
+  <!-- ADD TIMER MODAL -->
+  <div class="drawer" id="addTimerDrawer">
     <div class="drawer-header">
-      <div class="drawer-title">Dial Studio & Skins</div>
-      <button class="icon-btn" id="closeStudioBtn">✕</button>
+      <div class="drawer-title">New Timer / Preset ⭐</div>
+      <button class="icon-btn" id="closeAddDrawerBtn">✕</button>
     </div>
-    <div class="drawer-section-label" style="font-size: 11px; text-transform: uppercase; font-weight: 700; color: var(--text-dim); margin-bottom: 8px;">Architecture</div>
+    <div style="font-size: 11px; font-weight: 800; color: var(--text-dim); text-transform: uppercase; margin-bottom: 6px;">
+      Quick Favorites
+    </div>
+    <div class="template-grid">
+      <div class="template-card" data-title="Pasta" data-icon="🍝" data-time="660">
+        <span class="template-icon">🍝</span>
+        <div><div class="template-name">Pasta</div><div class="template-time">11:00</div></div>
+      </div>
+      <div class="template-card" data-title="Rice" data-icon="🍚" data-time="1080">
+        <span class="template-icon">🍚</span>
+        <div><div class="template-name">Rice</div><div class="template-time">18:00</div></div>
+      </div>
+      <div class="template-card" data-title="Boiled Egg" data-icon="🥚" data-time="540">
+        <span class="template-icon">🥚</span>
+        <div><div class="template-name">Boiled Egg</div><div class="template-time">09:00</div></div>
+      </div>
+      <div class="template-card" data-title="Ptitim" data-icon="🌾" data-time="360">
+        <span class="template-icon">🌾</span>
+        <div><div class="template-name">Ptitim</div><div class="template-time">06:00</div></div>
+      </div>
+      <div class="template-card" data-title="Pan Sear" data-icon="🍳" data-time="180">
+        <span class="template-icon">🍳</span>
+        <div><div class="template-name">Pan Sear</div><div class="template-time">03:00</div></div>
+      </div>
+      <div class="template-card" data-title="Tea" data-icon="🫖" data-time="240">
+        <span class="template-icon">🫖</span>
+        <div><div class="template-name">Tea</div><div class="template-time">04:00</div></div>
+      </div>
+    </div>
+
+    <div style="font-size: 11px; font-weight: 800; color: var(--text-dim); text-transform: uppercase; margin: 12px 0 6px 0;">
+      Custom Timer
+    </div>
+    <div style="display:flex; gap:8px;">
+      <input type="text" id="customTimerName" placeholder="Timer Name" style="flex:1; background:#141824; border:1px solid #252e42; color:#fff; padding:10px 14px; border-radius:12px; font-weight:700; font-size:13px; outline:none;" />
+      <input type="number" id="customTimerMins" placeholder="Mins" style="width:70px; background:#141824; border:1px solid #252e42; color:#fff; padding:10px; border-radius:12px; font-weight:800; font-size:14px; text-align:center; outline:none;" />
+    </div>
+    <button class="btn btn-primary" id="createCustomTimerBtn" style="width:100%; height:44px; margin-top:10px; font-size:13px;">Create Timer</button>
+  </div>
+
+  <!-- DELETE CONFIRMATION -->
+  <div class="drawer" id="deleteConfirmDrawer">
+    <div class="drawer-header">
+      <div class="drawer-title" style="color:#ff4d63;">Delete Timer?</div>
+      <button class="icon-btn" id="closeDeleteConfirmBtn">✕</button>
+    </div>
+    <div style="font-size:13px; color:var(--text-dim); margin-bottom:14px;" id="deleteConfirmText">Are you sure?</div>
+    <div style="display:flex; gap:8px;">
+      <button class="btn btn-secondary" id="cancelDeleteBtn" style="flex:1;">Cancel</button>
+      <button class="btn" id="confirmDeleteBtn" style="flex:1; background:#ff334b; color:#fff;">Delete</button>
+    </div>
+  </div>
+
+  <!-- SUMMARY DRAWER -->
+  <div class="drawer" id="summaryDrawer">
+    <div class="drawer-header"><div class="drawer-title">Workout Summary</div><button class="icon-btn" id="closeSummaryBtn">✕</button></div>
+    <div class="summary-card">
+      <div class="summary-row"><span class="summary-label">Completed Sets</span><span class="summary-val highlight" id="sumSets">0</span></div>
+      <div class="summary-row"><span class="summary-label">Active Time</span><span class="summary-val" id="sumActiveTime">00:00</span></div>
+      <div class="summary-row"><span class="summary-label">Rest Time</span><span class="summary-val" id="sumRestTime">00:00</span></div>
+      <div class="summary-row" style="border-top: 1px solid var(--surface-border); padding-top: 8px;"><span class="summary-label" style="font-weight: 800; color: #fff;">Total Time</span><span class="summary-val highlight" id="sumTotalTime">00:00</span></div>
+    </div>
+    <button class="btn btn-primary" id="finishAndSaveBtn" style="width: 100%; height: 48px;">Complete & Save Session</button>
+  </div>
+
+  <!-- STUDIO DRAWER -->
+  <div class="drawer" id="studioDrawer">
+    <div class="drawer-header"><div class="drawer-title">Dial Studio & Skins</div><button class="icon-btn" id="closeStudioBtn">✕</button></div>
+    <div style="font-size: 11px; text-transform: uppercase; font-weight: 700; color: var(--text-dim); margin-bottom: 6px;">Architecture</div>
     <div class="style-grid">
       <div class="style-card selected" data-style="chrono">Chrono Minimal</div>
       <div class="style-card" data-style="ticks">Tachymeter Ticks</div>
       <div class="style-card" data-style="segment">Retro Segment</div>
       <div class="style-card" data-style="monolith">Solid Monolith</div>
     </div>
-    <div class="drawer-section-label" style="font-size: 11px; text-transform: uppercase; font-weight: 700; color: var(--text-dim); margin: 14px 0 8px 0;">Color</div>
+    <div style="font-size: 11px; text-transform: uppercase; font-weight: 700; color: var(--text-dim); margin: 12px 0 6px 0;">Color</div>
     <div class="color-swatches">
       <div class="swatch selected" data-color="amber" style="background: #ffb300;"></div>
       <div class="swatch" data-color="green" style="background: #00e676;"></div>
@@ -546,44 +766,31 @@
       <div class="swatch" data-color="crimson" style="background: #ff334b;"></div>
       <div class="swatch" data-color="white" style="background: #e6edfa;"></div>
     </div>
-    <button class="btn btn-primary" id="saveDefaultThemeBtn" style="margin-top: 18px; width: 100%; height: 46px; font-size: 14px;">Save Default</button>
+    <button class="btn btn-primary" id="saveDefaultThemeBtn" style="margin-top: 16px; width: 100%; height: 44px; font-size: 13px;">Save Default</button>
   </div>
 
-  <!-- Roller Drawer -->
+  <!-- ROLLER DRAWER -->
   <div class="drawer" id="rollerDrawer">
-    <div class="drawer-header">
-      <div class="drawer-title">Exact Time Setter</div>
-      <button class="icon-btn" id="closeRollerBtn">✕</button>
-    </div>
+    <div class="drawer-header"><div class="drawer-title">Exact Time Setter</div><button class="icon-btn" id="closeRollerBtn">✕</button></div>
     <div class="roller-modal-body">
-      <div class="roller-col">
-        <select id="rollerMinutes"></select>
-      </div>
-      <div style="font-size: 28px; font-weight: 800; color: var(--text-dim);">:</div>
-      <div class="roller-col">
-        <select id="rollerSeconds"></select>
-      </div>
+      <div class="roller-col"><select id="rollerMinutes"></select></div>
+      <div style="font-size: 26px; font-weight: 800; color: var(--text-dim);">:</div>
+      <div class="roller-col"><select id="rollerSeconds"></select></div>
     </div>
-    <button class="btn btn-primary" id="applyRollerBtn" style="width: 100%; height: 48px; margin-top: 10px;">Set Timer</button>
+    <button class="btn btn-primary" id="applyRollerBtn" style="width: 100%; height: 46px; margin-top: 8px;">Set Timer</button>
   </div>
 
-  <!-- History Drawer -->
+  <!-- HISTORY DRAWER -->
   <div class="drawer" id="historyDrawer">
-    <div class="drawer-header">
-      <div class="drawer-title">Session History</div>
-      <button class="icon-btn" id="closeHistoryBtn">✕</button>
-    </div>
+    <div class="drawer-header"><div class="drawer-title">Session History</div><button class="icon-btn" id="closeHistoryBtn">✕</button></div>
     <div class="history-list" id="historyListContainer"></div>
-    <button class="btn btn-secondary" id="exportCsvBtn" style="width: 100%; height: 44px; margin-top: 12px; font-size: 13px;">Export to CSV (Sheets)</button>
+    <button class="btn btn-secondary" id="exportCsvBtn" style="width: 100%; height: 44px; margin-top: 10px; font-size: 13px;">Export to CSV (Sheets)</button>
   </div>
 
   <script>
-    // Register Service Worker for PWA Standalone Mode
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js').catch(() => {});
-    }
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
 
-    let mode = 'countdown';
+    let activeTab = 'routine';
     let targetSeconds = 60;
     let remainingSeconds = 60;
     let timerState = 'idle';
@@ -596,13 +803,13 @@
     let stopwatchSeconds = 0;
     let stopwatchInterval = null;
 
+    // HIGH ACOUSTIC AUDIO ENGINE
     let audioCtx = null;
     function getAudioContext() {
       if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
       if (audioCtx.state === 'suspended') audioCtx.resume();
       return audioCtx;
     }
-
     function playTone(freq, duration, type = 'square', gainLevel = 0.35) {
       try {
         const ctx = getAudioContext();
@@ -618,7 +825,6 @@
         osc.stop(ctx.currentTime + duration);
       } catch(e) {}
     }
-
     function playEndCountdownChime() {
       for (let i = 0; i < 3; i++) {
         setTimeout(() => {
@@ -628,7 +834,6 @@
         }, i * 320);
       }
     }
-
     function playRestMilestonePips(count) {
       for (let i = 0; i < count; i++) {
         setTimeout(() => {
@@ -641,18 +846,14 @@
 
     async function requestWakeLock() {
       try {
-        if ('wakeLock' in navigator && !wakeLock) {
-          wakeLock = await navigator.wakeLock.request('screen');
-        }
+        if ('wakeLock' in navigator && !wakeLock) wakeLock = await navigator.wakeLock.request('screen');
       } catch (err) {}
     }
     function releaseWakeLock() {
-      if (wakeLock) {
-        wakeLock.release().catch(() => {});
-        wakeLock = null;
-      }
+      if (wakeLock) { wakeLock.release().catch(() => {}); wakeLock = null; }
     }
 
+    // Dial ticks
     const ticksContainer = document.getElementById('ticksContainer');
     for (let i = 0; i < 60; i++) {
       const tick = document.createElement('div');
@@ -661,95 +862,72 @@
       ticksContainer.appendChild(tick);
     }
 
-    const mainDigits = document.getElementById('mainDigits');
-    const stateBadge = document.getElementById('stateBadge');
-    const ringProgress = document.getElementById('ringProgress');
-    const originBadge = document.getElementById('originBadge');
-    const setsBanner = document.getElementById('setsBanner');
-    const completedSetsValue = document.getElementById('completedSetsValue');
-    const totalElapsedBadge = document.getElementById('totalElapsedBadge');
-    const mainActionBtn = document.getElementById('mainActionBtn');
-    const endSessionBtn = document.getElementById('endSessionBtn');
-    const resetBtn = document.getElementById('resetBtn');
-    const subHint = document.getElementById('subHint');
-
     function formatTime(sec) {
       const m = Math.floor(sec / 60);
       const s = sec % 60;
       return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
     }
 
-    function updateDisplay() {
+    function updateRoutineDisplay() {
       const CIRCUMFERENCE = 816.81;
+      const originBadge = document.getElementById('originBadge');
+      const mainDigits = document.getElementById('mainDigits');
+      const stateBadge = document.getElementById('stateBadge');
+      const ringProgress = document.getElementById('ringProgress');
+      const totalElapsedBadge = document.getElementById('totalElapsedBadge');
+      const subHint = document.getElementById('subHint');
+
       originBadge.innerHTML = targetSeconds === 60 ? 'ROUTINE: <span>60s</span>' : `ORIGINAL: <span>${formatTime(targetSeconds)}</span>`;
 
-      if (mode === 'countdown') {
-        if (timerState === 'resting') {
-          mainDigits.textContent = formatTime(restSeconds);
-          stateBadge.textContent = 'REST / BREAK';
-          subHint.textContent = 'Tap NEXT SET (>)';
-          ringProgress.style.strokeDashoffset = '0';
-          
-          totalElapsedBadge.textContent = `TOTAL: ${formatTime(targetSeconds + restSeconds)}`;
-          totalElapsedBadge.classList.add('visible');
-          return;
-        }
+      if (timerState === 'resting') {
+        mainDigits.textContent = formatTime(restSeconds);
+        stateBadge.textContent = 'REST / BREAK';
+        subHint.textContent = 'Tap NEXT SET (>)';
+        ringProgress.style.strokeDashoffset = '0';
+        totalElapsedBadge.textContent = `TOTAL: ${formatTime(targetSeconds + restSeconds)}`;
+        totalElapsedBadge.classList.add('visible');
+        return;
+      }
 
-        totalElapsedBadge.classList.remove('visible');
+      totalElapsedBadge.classList.remove('visible');
+      mainDigits.textContent = targetSeconds <= 60 ? remainingSeconds : formatTime(remainingSeconds);
 
-        if (targetSeconds <= 60) {
-          mainDigits.textContent = remainingSeconds;
-        } else {
-          mainDigits.textContent = formatTime(remainingSeconds);
-        }
+      const progress = (targetSeconds - remainingSeconds) / targetSeconds;
+      ringProgress.style.strokeDashoffset = -(CIRCUMFERENCE * progress);
 
-        const progress = (targetSeconds - remainingSeconds) / targetSeconds;
-        ringProgress.style.strokeDashoffset = -(CIRCUMFERENCE * progress);
+      const activeTicks = Math.round((remainingSeconds / targetSeconds) * 60);
+      const ticks = ticksContainer.children;
+      for (let i = 0; i < 60; i++) ticks[i].classList.toggle('active', i < activeTicks);
 
-        const activeTicks = Math.round((remainingSeconds / targetSeconds) * 60);
-        const ticks = ticksContainer.children;
-        for (let i = 0; i < 60; i++) ticks[i].classList.toggle('active', i < activeTicks);
-
-        if (timerState === 'idle') {
-          stateBadge.textContent = 'READY';
-          subHint.textContent = 'drag to scrub';
-        } else if (timerState === 'running') {
-          stateBadge.textContent = 'RUNNING';
-          subHint.textContent = 'in session';
-        }
-      } else {
-        const hrs = Math.floor(stopwatchSeconds / 3600);
-        const mins = Math.floor((stopwatchSeconds % 3600) / 60);
-        const secs = stopwatchSeconds % 60;
-        mainDigits.textContent = hrs > 0 
-          ? `${String(hrs).padStart(2, '0')}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`
-          : `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
-        stateBadge.textContent = 'STOPWATCH';
-        subHint.textContent = 'elapsed';
-        totalElapsedBadge.classList.remove('visible');
+      if (timerState === 'idle') {
+        stateBadge.textContent = 'READY';
+        subHint.textContent = 'drag to scrub';
+      } else if (timerState === 'running') {
+        stateBadge.textContent = 'RUNNING';
+        subHint.textContent = 'in session';
       }
     }
 
-    function startCountdown() {
+    function startRoutineCountdown() {
       timerState = 'running';
-      mainActionBtn.textContent = 'PAUSE';
-      mainActionBtn.classList.remove('btn-primary');
-      mainActionBtn.classList.add('btn-secondary');
+      document.getElementById('mainActionBtn').textContent = 'PAUSE';
+      document.getElementById('mainActionBtn').classList.remove('btn-primary');
+      document.getElementById('mainActionBtn').classList.add('btn-secondary');
       requestWakeLock();
 
       timerInterval = setInterval(() => {
         if (remainingSeconds > 1) {
           remainingSeconds--;
-          updateDisplay();
+          updateRoutineDisplay();
         } else {
           remainingSeconds = 0;
-          updateDisplay();
+          updateRoutineDisplay();
           clearInterval(timerInterval);
 
           completedSets++;
-          completedSetsValue.textContent = completedSets;
-          setsBanner.classList.add('visible');
-          endSessionBtn.classList.add('visible');
+          document.getElementById('completedSetsValue').textContent = completedSets;
+          document.getElementById('setsBanner').classList.add('visible');
+          document.getElementById('endSessionBtn').classList.add('visible');
 
           playEndCountdownChime();
           startRestInterval();
@@ -760,86 +938,272 @@
     function startRestInterval() {
       timerState = 'resting';
       restSeconds = 0;
-      mainActionBtn.textContent = 'NEXT SET (>)';
-      mainActionBtn.classList.remove('btn-secondary');
-      mainActionBtn.classList.add('btn-primary');
-      updateDisplay();
+      document.getElementById('mainActionBtn').textContent = 'NEXT SET (>)';
+      document.getElementById('mainActionBtn').classList.remove('btn-secondary');
+      document.getElementById('mainActionBtn').classList.add('btn-primary');
+      updateRoutineDisplay();
 
       timerInterval = setInterval(() => {
         restSeconds++;
         totalAccumulatedRest++;
-        updateDisplay();
-
-        if (restSeconds > 0 && restSeconds % 60 === 0) {
-          const minuteNumber = restSeconds / 60;
-          playRestMilestonePips(minuteNumber);
-        }
+        updateRoutineDisplay();
+        if (restSeconds > 0 && restSeconds % 60 === 0) playRestMilestonePips(restSeconds / 60);
       }, 1000);
     }
 
-    function pauseTimer() {
-      clearInterval(timerInterval);
-      timerInterval = null;
-      if (timerState === 'running') timerState = 'paused';
-      mainActionBtn.textContent = timerState === 'resting' ? 'RESUME REST' : 'RESUME';
-      mainActionBtn.classList.remove('btn-secondary');
-      mainActionBtn.classList.add('btn-primary');
-    }
-
-    function resetTimer() {
+    function resetRoutineTimer() {
       clearInterval(timerInterval);
       timerInterval = null;
       timerState = 'idle';
       remainingSeconds = targetSeconds;
       restSeconds = 0;
-      updateDisplay();
-      mainActionBtn.textContent = 'START';
-      mainActionBtn.classList.remove('btn-secondary');
-      mainActionBtn.classList.add('btn-primary');
+      updateRoutineDisplay();
+      document.getElementById('mainActionBtn').textContent = 'START';
+      document.getElementById('mainActionBtn').classList.remove('btn-secondary');
+      document.getElementById('mainActionBtn').classList.add('btn-primary');
       releaseWakeLock();
     }
 
-    mainActionBtn.addEventListener('click', () => {
+    // MULTI-TIMER ENGINE
+    let multiTimers = [
+      { id: 1, name: 'Pasta', icon: '🍝', target: 660, remaining: 660, overtime: 0, state: 'idle' },
+      { id: 2, name: 'Rice', icon: '🍚', target: 1080, remaining: 1080, overtime: 0, state: 'idle' }
+    ];
+    let multiInterval = null;
+    let pendingDeleteId = null;
+
+    function renderMultiTimers() {
+      const grid = document.getElementById('timersGrid');
+      grid.innerHTML = '';
+      grid.className = 'timers-grid ' + (multiTimers.length <= 1 ? '' : multiTimers.length === 2 ? 'grid-duo' : 'grid-multi');
+
+      multiTimers.forEach(t => {
+        const isOvertime = t.state === 'overtime';
+        const card = document.createElement('div');
+        card.className = `timer-card ${isOvertime ? 'overtime' : ''}`;
+        card.innerHTML = `
+          <div class="timer-card-head">
+            <div class="timer-card-tag">${t.icon} ${t.name}</div>
+            <button class="timer-card-close" data-del="${t.id}" title="Delete">✕</button>
+          </div>
+          <div class="timer-card-body">
+            <div class="timer-card-digits">${isOvertime ? '+' + formatTime(t.overtime) : formatTime(t.remaining)}</div>
+            <div class="timer-card-meta">${isOvertime ? 'TOTAL ' + formatTime(t.target + t.overtime) : 'ORIGINAL ' + formatTime(t.target)}</div>
+          </div>
+          <div class="timer-card-actions">
+            <button class="card-btn card-btn-sec" data-act="reset" data-id="${t.id}">↺</button>
+            <button class="card-btn card-btn-primary" data-act="toggle" data-id="${t.id}">
+              ${t.state === 'running' || t.state === 'overtime' ? 'PAUSE' : 'START'}
+            </button>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function initMultiInterval() {
+      if (multiInterval) return;
+      multiInterval = setInterval(() => {
+        let hasActive = false;
+        multiTimers.forEach(t => {
+          if (t.state === 'running') {
+            hasActive = true;
+            if (t.remaining > 1) {
+              t.remaining--;
+            } else {
+              t.remaining = 0;
+              t.state = 'overtime';
+              playTone(880, 0.35, 'square', 0.5);
+              if ('vibrate' in navigator) navigator.vibrate([200, 100, 200]);
+            }
+          } else if (t.state === 'overtime') {
+            hasActive = true;
+            t.overtime++;
+          }
+        });
+        if (hasActive) {
+          requestWakeLock();
+          if (activeTab === 'multi') renderMultiTimers();
+        }
+      }, 1000);
+    }
+
+    document.getElementById('timersGrid').addEventListener('click', (e) => {
+      const delBtn = e.target.closest('[data-del]');
+      if (delBtn) {
+        pendingDeleteId = parseInt(delBtn.dataset.del);
+        const timer = multiTimers.find(t => t.id === pendingDeleteId);
+        document.getElementById('deleteConfirmText').textContent = `Are you sure you want to remove "${timer?.name}"?`;
+        openDrawer('deleteConfirmDrawer');
+        return;
+      }
+
+      const actBtn = e.target.closest('[data-act]');
+      if (!actBtn) return;
+      const id = parseInt(actBtn.dataset.id);
+      const timer = multiTimers.find(t => t.id === id);
+      if (!timer) return;
       getAudioContext();
-      if (mode === 'countdown') {
-        if (timerState === 'idle') startCountdown();
-        else if (timerState === 'running') pauseTimer();
-        else if (timerState === 'paused') startCountdown();
+
+      if (actBtn.dataset.act === 'toggle') {
+        if (timer.state === 'idle' || timer.state === 'paused') {
+          timer.state = timer.remaining === 0 ? 'overtime' : 'running';
+          initMultiInterval();
+        } else if (timer.state === 'running' || timer.state === 'overtime') {
+          timer.state = 'paused';
+        }
+      } else if (actBtn.dataset.act === 'reset') {
+        timer.remaining = timer.target;
+        timer.overtime = 0;
+        timer.state = 'idle';
+      }
+      renderMultiTimers();
+    });
+
+    document.getElementById('startAllBtn').addEventListener('click', () => {
+      getAudioContext();
+      multiTimers.forEach(t => { if (t.state === 'idle' || t.state === 'paused') t.state = t.remaining === 0 ? 'overtime' : 'running'; });
+      initMultiInterval();
+      renderMultiTimers();
+    });
+    document.getElementById('pauseAllBtn').addEventListener('click', () => {
+      multiTimers.forEach(t => { if (t.state === 'running' || t.state === 'overtime') t.state = 'paused'; });
+      renderMultiTimers();
+    });
+    document.getElementById('resetAllBtn').addEventListener('click', () => {
+      multiTimers.forEach(t => { t.remaining = t.target; t.overtime = 0; t.state = 'idle'; });
+      renderMultiTimers();
+    });
+
+    document.getElementById('openAddTimerModal').addEventListener('click', () => openDrawer('addTimerDrawer'));
+    document.getElementById('closeAddDrawerBtn').addEventListener('click', closeAllDrawers);
+
+    document.querySelector('.template-grid').addEventListener('click', (e) => {
+      const card = e.target.closest('.template-card');
+      if (!card) return;
+      multiTimers.push({
+        id: Date.now(),
+        name: card.dataset.title,
+        icon: card.dataset.icon,
+        target: parseInt(card.dataset.time),
+        remaining: parseInt(card.dataset.time),
+        overtime: 0,
+        state: 'idle'
+      });
+      closeAllDrawers();
+      renderMultiTimers();
+    });
+
+    document.getElementById('createCustomTimerBtn').addEventListener('click', () => {
+      const name = document.getElementById('customTimerName').value.trim() || 'Custom';
+      const mins = parseInt(document.getElementById('customTimerMins').value) || 5;
+      multiTimers.push({
+        id: Date.now(),
+        name,
+        icon: '⏱️',
+        target: mins * 60,
+        remaining: mins * 60,
+        overtime: 0,
+        state: 'idle'
+      });
+      document.getElementById('customTimerName').value = '';
+      document.getElementById('customTimerMins').value = '';
+      closeAllDrawers();
+      renderMultiTimers();
+    });
+
+    document.getElementById('closeDeleteConfirmBtn').addEventListener('click', closeAllDrawers);
+    document.getElementById('cancelDeleteBtn').addEventListener('click', closeAllDrawers);
+    document.getElementById('confirmDeleteBtn').addEventListener('click', () => {
+      if (pendingDeleteId) {
+        multiTimers = multiTimers.filter(t => t.id !== pendingDeleteId);
+        renderMultiTimers();
+      }
+      closeAllDrawers();
+    });
+
+    // TABS
+    document.getElementById('tabRoutine').addEventListener('click', () => switchTab('routine'));
+    document.getElementById('tabMulti').addEventListener('click', () => switchTab('multi'));
+    document.getElementById('tabStopwatch').addEventListener('click', () => switchTab('stopwatch'));
+
+    function switchTab(tab) {
+      activeTab = tab;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.view-panel').forEach(p => p.classList.remove('active'));
+      const mainBtn = document.getElementById('mainActionBtn');
+      const resetBtn = document.getElementById('resetBtn');
+
+      if (tab === 'routine') {
+        document.getElementById('tabRoutine').classList.add('active');
+        document.getElementById('panelRoutine').classList.add('active');
+        mainBtn.style.display = 'flex';
+        resetBtn.style.display = 'flex';
+        mainBtn.textContent = timerState === 'running' ? 'PAUSE' : timerState === 'resting' ? 'NEXT SET (>)' : 'START';
+      } else if (tab === 'multi') {
+        document.getElementById('tabMulti').classList.add('active');
+        document.getElementById('panelMulti').classList.add('active');
+        mainBtn.style.display = 'none';
+        resetBtn.style.display = 'none';
+        renderMultiTimers();
+      } else if (tab === 'stopwatch') {
+        document.getElementById('tabStopwatch').classList.add('active');
+        document.getElementById('panelStopwatch').classList.add('active');
+        mainBtn.style.display = 'flex';
+        resetBtn.style.display = 'flex';
+        mainBtn.textContent = stopwatchInterval ? 'STOP' : 'START';
+      }
+    }
+
+    // MAIN ACTIONS
+    document.getElementById('mainActionBtn').addEventListener('click', () => {
+      getAudioContext();
+      if (activeTab === 'routine') {
+        if (timerState === 'idle') startRoutineCountdown();
+        else if (timerState === 'running') {
+          clearInterval(timerInterval);
+          timerInterval = null;
+          timerState = 'paused';
+          document.getElementById('mainActionBtn').textContent = 'RESUME';
+          document.getElementById('mainActionBtn').classList.remove('btn-secondary');
+          document.getElementById('mainActionBtn').classList.add('btn-primary');
+        } else if (timerState === 'paused') startRoutineCountdown();
         else if (timerState === 'resting') {
           clearInterval(timerInterval);
           remainingSeconds = targetSeconds;
-          startCountdown();
+          startRoutineCountdown();
         }
-      } else {
+      } else if (activeTab === 'stopwatch') {
         if (stopwatchInterval) {
           clearInterval(stopwatchInterval);
           stopwatchInterval = null;
-          mainActionBtn.textContent = 'RESUME';
+          document.getElementById('mainActionBtn').textContent = 'RESUME';
         } else {
-          mainActionBtn.textContent = 'STOP';
+          document.getElementById('mainActionBtn').textContent = 'STOP';
           requestWakeLock();
           stopwatchInterval = setInterval(() => {
             stopwatchSeconds++;
-            updateDisplay();
+            document.getElementById('stopwatchDigits').textContent = formatTime(stopwatchSeconds);
           }, 1000);
         }
       }
     });
 
-    resetBtn.addEventListener('click', () => {
-      if (mode === 'countdown') resetTimer();
-      else {
+    document.getElementById('resetBtn').addEventListener('click', () => {
+      if (activeTab === 'routine') resetRoutineTimer();
+      else if (activeTab === 'stopwatch') {
         clearInterval(stopwatchInterval);
         stopwatchInterval = null;
         stopwatchSeconds = 0;
-        mainActionBtn.textContent = 'START';
-        updateDisplay();
+        document.getElementById('stopwatchDigits').textContent = '00:00';
+        document.getElementById('mainActionBtn').textContent = 'START';
         releaseWakeLock();
       }
     });
 
-    endSessionBtn.addEventListener('click', () => {
-      pauseTimer();
+    // SUMMARY
+    document.getElementById('endSessionBtn').addEventListener('click', () => {
+      clearInterval(timerInterval);
       document.getElementById('sumSets').textContent = completedSets;
       const activeSecs = completedSets * targetSeconds;
       document.getElementById('sumActiveTime').textContent = formatTime(activeSecs);
@@ -850,41 +1214,48 @@
 
     document.getElementById('finishAndSaveBtn').addEventListener('click', () => {
       if (completedSets > 0) {
-        saveSessionRecord(completedSets, completedSets * targetSeconds, totalAccumulatedRest);
+        const history = JSON.parse(localStorage.getItem('lodi_timer_history') || '[]');
+        const now = new Date();
+        history.unshift({
+          id: Date.now(),
+          dateStr: now.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }),
+          timeStr: now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
+          sets: completedSets,
+          activeSecs: completedSets * targetSeconds,
+          restSecs: totalAccumulatedRest,
+          totalSecs: (completedSets * targetSeconds) + totalAccumulatedRest
+        });
+        localStorage.setItem('lodi_timer_history', JSON.stringify(history.slice(0, 100)));
       }
       closeAllDrawers();
       completedSets = 0;
       totalAccumulatedRest = 0;
-      setsBanner.classList.remove('visible');
-      endSessionBtn.classList.remove('visible');
-      resetTimer();
+      document.getElementById('setsBanner').classList.remove('visible');
+      document.getElementById('endSessionBtn').classList.remove('visible');
+      resetRoutineTimer();
     });
 
+    // SCRUBBING
     const dialStage = document.getElementById('dialStage');
     let startY = 0;
     dialStage.addEventListener('wheel', (e) => {
       if (timerState !== 'idle') return;
       e.preventDefault();
-      const delta = e.deltaY < 0 ? 5 : -5;
-      targetSeconds = Math.max(5, Math.min(7200, targetSeconds + delta));
+      targetSeconds = Math.max(5, Math.min(7200, targetSeconds + (e.deltaY < 0 ? 5 : -5)));
       remainingSeconds = targetSeconds;
-      updateDisplay();
+      updateRoutineDisplay();
     }, { passive: false });
 
-    dialStage.addEventListener('touchstart', (e) => {
-      if (timerState !== 'idle') return;
-      startY = e.touches[0].clientY;
-    });
+    dialStage.addEventListener('touchstart', (e) => { if (timerState === 'idle') startY = e.touches[0].clientY; });
     dialStage.addEventListener('touchmove', (e) => {
       if (timerState !== 'idle') return;
       const currentY = e.touches[0].clientY;
       const diff = startY - currentY;
       if (Math.abs(diff) > 16) {
-        const step = diff > 0 ? 5 : -5;
-        targetSeconds = Math.max(5, Math.min(7200, targetSeconds + step));
+        targetSeconds = Math.max(5, Math.min(7200, targetSeconds + (diff > 0 ? 5 : -5)));
         remainingSeconds = targetSeconds;
         startY = currentY;
-        updateDisplay();
+        updateRoutineDisplay();
       }
     });
 
@@ -896,7 +1267,7 @@
       else if (val.startsWith('-')) targetSeconds = Math.max(5, targetSeconds - parseInt(val.slice(1)));
       else targetSeconds = parseInt(val);
       remainingSeconds = targetSeconds;
-      updateDisplay();
+      updateRoutineDisplay();
     });
 
     document.getElementById('presetsBar').addEventListener('click', (e) => {
@@ -906,24 +1277,22 @@
       chip.classList.add('active');
       targetSeconds = parseInt(chip.dataset.time);
       remainingSeconds = targetSeconds;
-      updateDisplay();
+      updateRoutineDisplay();
     });
 
+    // DRAWERS
     const overlay = document.getElementById('overlay');
-    function openDrawer(id) {
-      overlay.classList.add('open');
-      document.getElementById(id).classList.add('open');
-    }
+    function openDrawer(id) { overlay.classList.add('open'); document.getElementById(id).classList.add('open'); }
     function closeAllDrawers() {
       overlay.classList.remove('open');
       document.querySelectorAll('.drawer').forEach(d => d.classList.remove('open'));
     }
     overlay.addEventListener('click', closeAllDrawers);
-
     document.getElementById('closeSummaryBtn').addEventListener('click', closeAllDrawers);
     document.getElementById('openStudioBtn').addEventListener('click', () => openDrawer('studioDrawer'));
     document.getElementById('closeStudioBtn').addEventListener('click', closeAllDrawers);
 
+    // THEMES
     document.querySelectorAll('.style-card').forEach(card => {
       card.addEventListener('click', () => {
         document.querySelectorAll('.style-card').forEach(c => c.classList.remove('selected'));
@@ -932,7 +1301,6 @@
         document.body.classList.add(`style-${card.dataset.style}`);
       });
     });
-
     document.querySelectorAll('.swatch').forEach(swatch => {
       swatch.addEventListener('click', () => {
         document.querySelectorAll('.swatch').forEach(s => s.classList.remove('selected'));
@@ -941,7 +1309,6 @@
         document.body.classList.add(`color-${swatch.dataset.color}`);
       });
     });
-
     document.getElementById('saveDefaultThemeBtn').addEventListener('click', () => {
       const style = document.querySelector('.style-card.selected')?.dataset.style || 'chrono';
       const color = document.querySelector('.swatch.selected')?.dataset.color || 'amber';
@@ -950,11 +1317,11 @@
       closeAllDrawers();
     });
 
+    // ROLLER
     const mSel = document.getElementById('rollerMinutes');
     const sSel = document.getElementById('rollerSeconds');
     for (let i = 0; i <= 90; i++) mSel.add(new Option(String(i).padStart(2, '0'), i));
     for (let i = 0; i < 60; i += 5) sSel.add(new Option(String(i).padStart(2, '0'), i));
-
     document.getElementById('openRollerBtn').addEventListener('click', () => {
       if (timerState !== 'idle') return;
       mSel.value = Math.floor(targetSeconds / 60);
@@ -967,70 +1334,44 @@
       if (total > 0) {
         targetSeconds = total;
         remainingSeconds = total;
-        updateDisplay();
+        updateRoutineDisplay();
       }
       closeAllDrawers();
     });
 
-    function getHistory() {
-      return JSON.parse(localStorage.getItem('lodi_timer_history') || '[]');
-    }
-    function saveSessionRecord(sets, activeSecs, restSecs) {
-      const history = getHistory();
-      const now = new Date();
-      history.unshift({
-        id: Date.now(),
-        dateStr: now.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }),
-        timeStr: now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
-        sets,
-        activeSecs,
-        restSecs,
-        totalSecs: activeSecs + restSecs
-      });
-      localStorage.setItem('lodi_timer_history', JSON.stringify(history.slice(0, 100)));
-    }
-
-    function renderHistory() {
-      const history = getHistory();
+    // HISTORY
+    document.getElementById('openHistoryBtn').addEventListener('click', () => {
+      const history = JSON.parse(localStorage.getItem('lodi_timer_history') || '[]');
       const container = document.getElementById('historyListContainer');
-      container.innerHTML = '';
-      if (!history.length) {
-        container.innerHTML = '<div style="color:var(--text-dim);font-size:13px;padding:12px 0;">No completed sessions logged yet.</div>';
-        return;
-      }
+      container.innerHTML = history.length ? '' : '<div style="color:var(--text-dim);font-size:13px;padding:12px 0;">No completed sessions logged.</div>';
       history.forEach(item => {
         const row = document.createElement('div');
-        row.className = 'history-item';
+        row.style.cssText = 'background:var(--surface); border:1px solid var(--surface-border); border-radius:12px; padding:10px 14px; display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;';
         row.innerHTML = `
           <div>
             <div style="font-size:13px;font-weight:700;">${item.dateStr} at ${item.timeStr}</div>
             <div style="font-size:11px;color:var(--text-dim);">Sets: ${item.sets} • Active: ${formatTime(item.activeSecs || 0)} • Rest: ${formatTime(item.restSecs || 0)}</div>
           </div>
-          <button style="background:none;border:none;color:#ff4d63;cursor:pointer;padding:4px;" data-id="${item.id}">✕</button>
+          <button style="background:none;border:none;color:#ff4d63;cursor:pointer;padding:4px;" data-delhist="${item.id}">✕</button>
         `;
         container.appendChild(row);
       });
-    }
-
-    document.getElementById('openHistoryBtn').addEventListener('click', () => {
-      renderHistory();
       openDrawer('historyDrawer');
     });
     document.getElementById('closeHistoryBtn').addEventListener('click', closeAllDrawers);
-
     document.getElementById('historyListContainer').addEventListener('click', (e) => {
-      const btn = e.target.closest('button[data-id]');
+      const btn = e.target.closest('[data-delhist]');
       if (!btn) return;
       if (confirm('Delete this routine entry?')) {
-        const id = parseInt(btn.dataset.id);
-        const updated = getHistory().filter(h => h.id !== id);
+        const id = parseInt(btn.dataset.delhist);
+        const updated = JSON.parse(localStorage.getItem('lodi_timer_history') || '[]').filter(h => h.id !== id);
         localStorage.setItem('lodi_timer_history', JSON.stringify(updated));
-        renderHistory();
+        document.getElementById('openHistoryBtn').click();
       }
     });
 
     document.getElementById('exportCsvBtn').addEventListener('click', () => {
-      const history = getHistory();
+      const history = JSON.parse(localStorage.getItem('lodi_timer_history') || '[]');
       if (!history.length) return alert('No session records to export.');
       let csv = 'ID,Date,Time,Sets,ActiveTime(s),RestTime(s),TotalTime(s)\n';
       history.forEach(h => {
@@ -1045,32 +1386,112 @@
       URL.revokeObjectURL(url);
     });
 
-    const tabCountdown = document.getElementById('tabCountdown');
-    const tabStopwatch = document.getElementById('tabStopwatch');
-    tabCountdown.addEventListener('click', () => {
-      if (mode === 'countdown') return;
-      mode = 'countdown';
-      tabCountdown.classList.add('active');
-      tabStopwatch.classList.remove('active');
-      document.getElementById('quickAdjustBar').style.display = 'flex';
-      document.getElementById('presetsBar').style.display = 'flex';
-      resetTimer();
-    });
-    tabStopwatch.addEventListener('click', () => {
-      if (mode === 'stopwatch') return;
-      mode = 'stopwatch';
-      tabStopwatch.classList.add('active');
-      tabCountdown.classList.remove('active');
-      document.getElementById('quickAdjustBar').style.display = 'none';
-      document.getElementById('presetsBar').style.display = 'none';
-      setsBanner.classList.remove('visible');
-      stopwatchSeconds = 0;
-      mainActionBtn.textContent = 'START';
-      mainActionBtn.classList.remove('btn-secondary');
-      mainActionBtn.classList.add('btn-primary');
-      updateDisplay();
+    // SHARE LOGIC & TOAST
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2000);
+    }
+
+    document.getElementById('shareAppBtn').addEventListener('click', async () => {
+      const shareData = {
+        title: 'Lodi Timer',
+        text: 'Minimal interval timer for workouts & cooking:',
+        url: window.location.href.split('#')[0]
+      };
+      if (navigator.share) {
+        try { await navigator.share(shareData); } catch (err) {}
+      } else {
+        navigator.clipboard.writeText(shareData.url);
+        showToast('Link copied to clipboard!');
+      }
     });
 
+    // 3-LANGUAGE INFO & INSTALLATION CONTENT
+    const infoTexts = {
+      en: {
+        title: "Installation & Privacy",
+        body: `
+          <div class="info-step-box">
+            <strong>1. Android (Chrome)</strong><br/>
+            Tap the <strong>3 vertical dots (⋮)</strong> at top right &rarr; Select <strong>"Install app"</strong> (or "Add to Home Screen"). The app will launch edge-to-edge with no address bar.
+          </div>
+          <div class="info-step-box">
+            <strong>2. iPhone / iPad (Safari)</strong><br/>
+            Tap the <strong>Share button</strong> (square with up arrow) &rarr; Scroll down and tap <strong>"Add to Home Screen"</strong>.
+          </div>
+          <div class="info-step-box">
+            <strong>3. 100% Private & Safe</strong><br/>
+            • Zero tracking, cookies, or external analytics.<br/>
+            • Works 100% offline via local service worker.<br/>
+            • No sensitive hardware permissions needed.
+          </div>
+        `
+      },
+      pl: {
+        title: "Instalacja i Prywatność",
+        body: `
+          <div class="info-step-box">
+            <strong>1. Android (Chrome)</strong><br/>
+            Kliknij <strong>3 pionowe kropki (⋮)</strong> w prawym górnym rogu &rarr; Wybierz <strong>"Zainstaluj aplikację"</strong> (lub "Dodaj do ekranu głównego"). Aplikacja otworzy się na pełnym ekranie bez paska przeglądarki.
+          </div>
+          <div class="info-step-box">
+            <strong>2. iPhone / iPad (Safari)</strong><br/>
+            Kliknij ikonę <strong>Udostępnij</strong> (kwadrat ze strzałką w górę) &rarr; Wybierz <strong>"Do ekranu początkowego"</strong>.
+          </div>
+          <div class="info-step-box">
+            <strong>3. Pełne bezpieczeństwo i prywatność</strong><br/>
+            • Zero reklam, śledzenia i plików cookies.<br/>
+            • Działa w 100% offline w Twoim telefonie.<br/>
+            • Nie wymaga żadnych uprawnień.
+          </div>
+        `
+      },
+      he: {
+        title: "התקנה ואבטחה",
+        body: `
+          <div class="info-step-box rtl-text">
+            <strong>1. מכשירי אנדרואיד (Chrome)</strong><br/>
+            לחץ על <strong>3 הנקודות (⋮)</strong> בפינה העליונה &larr; בחר <strong>"התקנת אפליקציה"</strong> (או "הוספה למסך הבית"). האפליקציה תיפתח במסך מלא ללא שורת כתובת.
+          </div>
+          <div class="info-step-box rtl-text">
+            <strong>2. אייפון / אייפד (Safari)</strong><br/>
+            לחץ על כפתור <strong>השיתוף</strong> (ריבוע עם חץ כלפי מעלה) &larr; גלול ובחר <strong>"הוסף למסך הבית"</strong>.
+          </div>
+          <div class="info-step-box rtl-text">
+            <strong>3. בטוח ופרטי ב-100%</strong><br/>
+            • ללא פרסומות, ללא מעקב וללא שמירת מידע בשרתים חיצוניים.<br/>
+            • פועל באופן מלא ללא חיבור לאינטרנט (Offline).<br/>
+            • אינו דורש הרשאות מיוחדות.
+          </div>
+        `
+      }
+    };
+
+    function setInfoLanguage(lang) {
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+      });
+      const data = infoTexts[lang];
+      document.getElementById('infoTitle').textContent = data.title;
+      const contentEl = document.getElementById('infoContent');
+      contentEl.innerHTML = data.body;
+      if (lang === 'he') contentEl.classList.add('rtl-text');
+      else contentEl.classList.remove('rtl-text');
+    }
+
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => setInfoLanguage(btn.dataset.lang));
+    });
+
+    document.getElementById('openInfoBtn').addEventListener('click', () => {
+      setInfoLanguage('en');
+      openDrawer('infoDrawer');
+    });
+    document.getElementById('closeInfoBtn').addEventListener('click', closeAllDrawers);
+
+    // INIT PREFERENCES
     (function initPrefs() {
       const savedStyle = localStorage.getItem('lodi_default_style') || 'chrono';
       const savedColor = localStorage.getItem('lodi_default_color') || 'amber';
@@ -1079,7 +1500,7 @@
       document.querySelectorAll('.swatch').forEach(s => s.classList.toggle('selected', s.dataset.color === savedColor));
     })();
 
-    updateDisplay();
+    updateRoutineDisplay();
   </script>
 </body>
 </html>
