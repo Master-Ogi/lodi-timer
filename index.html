@@ -9,7 +9,9 @@
   <meta name="mobile-web-app-capable" content="yes" />
   <title>Lodi Timer</title>
   
-  <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22Lodi%20Timer%22%2C%22short_name%22%3A%22LodiTimer%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23050608%22%2C%22theme_color%22%3A%22%23050608%22%2C%22orientation%22%3A%22portrait%22%7D" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" type="image/svg+xml" href="icon.svg" />
+  <link rel="apple-touch-icon" href="icon.svg" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -234,7 +236,6 @@
     }
     .total-elapsed-badge.visible { display: inline-block; }
 
-    /* Enlarged Sets Indicator for Table Viewing */
     .sets-banner {
       background: var(--surface);
       border: 1.5px solid var(--surface-border);
@@ -338,7 +339,6 @@
     }
     .btn-end.visible { display: flex; }
 
-    /* Modals & Drawers */
     .drawer {
       position: fixed;
       bottom: -100%;
@@ -467,7 +467,6 @@
       </div>
     </div>
 
-    <!-- Prominent Sets Display -->
     <div class="sets-banner" id="setsBanner">
       <span class="label">Completed Sets</span>
       <span class="val" id="completedSetsValue">0</span>
@@ -579,6 +578,11 @@
   </div>
 
   <script>
+    // Register Service Worker for PWA Standalone Mode
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js').catch(() => {});
+    }
+
     let mode = 'countdown';
     let targetSeconds = 60;
     let remainingSeconds = 60;
@@ -592,7 +596,6 @@
     let stopwatchSeconds = 0;
     let stopwatchInterval = null;
 
-    // High Acoustic Audio Engine
     let audioCtx = null;
     function getAudioContext() {
       if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -616,7 +619,6 @@
       } catch(e) {}
     }
 
-    // Loud multi-harmonic chime on countdown end
     function playEndCountdownChime() {
       for (let i = 0; i < 3; i++) {
         setTimeout(() => {
@@ -627,7 +629,6 @@
       }
     }
 
-    // Distinct minute interval rest pips (e.g. 3 beeps spaced by 380ms)
     function playRestMilestonePips(count) {
       for (let i = 0; i < count; i++) {
         setTimeout(() => {
@@ -769,7 +770,6 @@
         totalAccumulatedRest++;
         updateDisplay();
 
-        // Distinct milestone beeps per minute: 1 beep at 1m, 2 at 2m, etc.
         if (restSeconds > 0 && restSeconds % 60 === 0) {
           const minuteNumber = restSeconds / 60;
           playRestMilestonePips(minuteNumber);
@@ -838,7 +838,6 @@
       }
     });
 
-    // End Session Summary Logic
     endSessionBtn.addEventListener('click', () => {
       pauseTimer();
       document.getElementById('sumSets').textContent = completedSets;
@@ -861,7 +860,6 @@
       resetTimer();
     });
 
-    // Scrubbing via Wheel & Touch Drag
     const dialStage = document.getElementById('dialStage');
     let startY = 0;
     dialStage.addEventListener('wheel', (e) => {
@@ -911,7 +909,6 @@
       updateDisplay();
     });
 
-    // Drawers
     const overlay = document.getElementById('overlay');
     function openDrawer(id) {
       overlay.classList.add('open');
