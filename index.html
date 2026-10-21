@@ -2,50 +2,61 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <meta name="theme-color" content="#050608" />
-  <title>Lodi Timer • Studio</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <title>Lodi Timer</title>
+  
+  <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22Lodi%20Timer%22%2C%22short_name%22%3A%22LodiTimer%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23050608%22%2C%22theme_color%22%3A%22%23050608%22%2C%22orientation%22%3A%22portrait%22%7D" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #050608;
-      --surface: #0f1117;
-      --surface-border: #1a1e28;
-      --text-main: #f0f3fa;
-      --text-dim: #717b94;
-      --color-primary: #00e676;
-      --color-primary-rgb: 0, 230, 118;
-      --font-display: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      --surface: #0f121a;
+      --surface-border: #1a202c;
+      --text-main: #f8fafc;
+      --text-dim: #828ca0;
+      --color-primary: #ffb300;
+      --color-primary-rgb: 255, 179, 0;
+      --font-display: 'Plus Jakarta Sans', sans-serif;
       --dial-border-color: rgba(255, 255, 255, 0.08);
       --dial-bg: transparent;
-      --dial-radius: 50%;
+      --app-height: 100dvh;
     }
 
-    body.color-cyan { --color-primary: #00d4ff; --color-primary-rgb: 0, 212, 255; }
     body.color-amber { --color-primary: #ffb300; --color-primary-rgb: 255, 179, 0; }
+    body.color-green { --color-primary: #00e676; --color-primary-rgb: 0, 230, 118; }
+    body.color-cyan { --color-primary: #00d4ff; --color-primary-rgb: 0, 212, 255; }
     body.color-crimson { --color-primary: #ff334b; --color-primary-rgb: 255, 51, 75; }
     body.color-white { --color-primary: #e6edfa; --color-primary-rgb: 230, 237, 250; }
 
     body.style-chrono { --font-display: 'Plus Jakarta Sans', sans-serif; }
     body.style-ticks { --font-display: 'Plus Jakarta Sans', sans-serif; }
     body.style-segment { --font-display: 'Share Tech Mono', monospace; letter-spacing: -2px; }
-    body.style-monolith { --font-display: 'Plus Jakarta Sans', sans-serif; --dial-bg: var(--color-primary); --text-main: #000000; }
+    body.style-monolith { --font-display: 'Plus Jakarta Sans', sans-serif; --dial-bg: var(--color-primary); --text-main: #000; }
 
     * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; -webkit-tap-highlight-color: transparent; }
-    body {
+    
+    html, body {
+      height: var(--app-height);
+      width: 100vw;
+      overflow: hidden;
       background-color: var(--bg);
       color: var(--text-main);
       font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
-      min-height: 100vh;
+    }
+
+    body {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
-      padding: env(safe-area-inset-top, 16px) 16px env(safe-area-inset-bottom, 20px) 16px;
-      overflow-x: hidden;
-      transition: background-color 0.25s ease;
+      padding: env(safe-area-inset-top, 10px) 14px env(safe-area-inset-bottom, 14px) 14px;
     }
 
     header {
@@ -54,48 +65,46 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 10px 4px;
+      height: 44px;
     }
-    .brand { font-size: 15px; font-weight: 700; letter-spacing: 1px; color: var(--text-dim); }
+    .brand { font-size: 15px; font-weight: 800; letter-spacing: 1px; color: var(--text-dim); }
     .brand span { color: var(--color-primary); }
     .header-actions { display: flex; gap: 8px; }
     .icon-btn {
       background: var(--surface);
       border: 1px solid var(--surface-border);
       color: var(--text-main);
-      width: 40px;
-      height: 40px;
+      width: 38px;
+      height: 38px;
       border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      transition: 0.15s;
     }
     .icon-btn:active { transform: scale(0.92); }
 
     .nav-tabs {
       background: var(--surface);
       border: 1px solid var(--surface-border);
-      padding: 4px;
-      border-radius: 14px;
+      padding: 3px;
+      border-radius: 12px;
       display: flex;
       gap: 4px;
       width: 100%;
-      max-width: 340px;
-      margin-bottom: 8px;
+      max-width: 320px;
+      margin: 4px 0;
     }
     .tab-btn {
       flex: 1;
-      padding: 8px 12px;
+      padding: 6px 10px;
       border: none;
       background: transparent;
       color: var(--text-dim);
       font-size: 13px;
-      font-weight: 600;
-      border-radius: 10px;
+      font-weight: 700;
+      border-radius: 9px;
       cursor: pointer;
-      transition: 0.2s;
     }
     .tab-btn.active {
       background: rgba(255, 255, 255, 0.08);
@@ -111,19 +120,30 @@
       width: 100%;
       max-width: 440px;
       position: relative;
+      gap: 10px;
     }
 
+    .origin-badge {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      min-height: 14px;
+    }
+    .origin-badge span { color: var(--color-primary); }
+
     .dial-stage {
-      width: 310px;
-      height: 310px;
+      width: min(72vw, 290px);
+      height: min(72vw, 290px);
       position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: var(--dial-radius);
+      border-radius: 50%;
       background: var(--dial-bg);
-      touch-action: pan-x;
       cursor: ns-resize;
+      touch-action: pan-x;
     }
 
     .dial-svg {
@@ -134,7 +154,6 @@
       height: 100%;
       pointer-events: none;
     }
-
     .ring-bg { fill: none; stroke: var(--dial-border-color); stroke-width: 6; }
     .ring-progress {
       fill: none;
@@ -144,16 +163,10 @@
       transform: rotate(-90deg);
       transform-origin: 50% 50%;
       transition: stroke-dashoffset 0.25s linear, stroke 0.3s ease;
-      filter: drop-shadow(0 0 6px rgba(var(--color-primary-rgb), 0.45));
+      filter: drop-shadow(0 0 8px rgba(var(--color-primary-rgb), 0.5));
     }
 
-    .ticks-container {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      display: none;
-    }
+    .ticks-container { position: absolute; width: 100%; height: 100%; pointer-events: none; display: none; }
     body.style-ticks .ticks-container { display: block; }
     body.style-ticks .ring-progress, body.style-ticks .ring-bg { display: none; }
 
@@ -164,13 +177,10 @@
       width: 2px;
       height: 10px;
       background: rgba(255, 255, 255, 0.15);
-      transform-origin: center -136px;
+      transform-origin: center -128px;
       border-radius: 1px;
     }
-    .tick.active {
-      background: var(--color-primary);
-      box-shadow: 0 0 4px rgba(var(--color-primary-rgb), 0.6);
-    }
+    .tick.active { background: var(--color-primary); box-shadow: 0 0 5px rgba(var(--color-primary-rgb), 0.7); }
 
     body.style-monolith .ring-progress,
     body.style-monolith .ring-bg,
@@ -184,63 +194,69 @@
       align-items: center;
       text-align: center;
     }
-
     .state-badge {
       font-size: 11px;
       letter-spacing: 1.5px;
       text-transform: uppercase;
-      font-weight: 700;
+      font-weight: 800;
       color: var(--color-primary);
-      margin-bottom: 4px;
-      min-height: 16px;
+      margin-bottom: 2px;
     }
-    body.style-monolith .state-badge { color: rgba(0, 0, 0, 0.6); }
+    body.style-monolith .state-badge { color: rgba(0, 0, 0, 0.65); }
 
     .main-digits {
       font-family: var(--font-display);
-      font-size: 82px;
-      font-weight: 800;
-      line-height: 1;
+      font-size: clamp(64px, 18vw, 84px);
+      font-weight: 900;
+      line-height: 0.95;
       color: var(--text-main);
       font-variant-numeric: tabular-nums;
-      transition: color 0.2s;
     }
     body.style-monolith .main-digits { color: #000; }
 
     .sub-hint {
       font-size: 11px;
-      font-weight: 500;
+      font-weight: 600;
       color: var(--text-dim);
-      margin-top: 8px;
+      margin-top: 6px;
     }
-    body.style-monolith .sub-hint { color: rgba(0, 0, 0, 0.5); }
+    body.style-monolith .sub-hint { color: rgba(0, 0, 0, 0.6); }
 
-    .counter-pill {
-      margin-top: 22px;
-      background: var(--surface);
-      border: 1px solid var(--surface-border);
-      padding: 6px 16px;
-      border-radius: 20px;
-      font-size: 13px;
+    .total-elapsed-badge {
+      font-size: 12px;
       font-weight: 700;
-      letter-spacing: 0.5px;
-      color: var(--text-main);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      min-height: 32px;
-      opacity: 0;
-      transition: opacity 0.3s;
+      color: var(--color-primary);
+      background: rgba(255, 255, 255, 0.06);
+      padding: 3px 10px;
+      border-radius: 8px;
+      margin-top: 4px;
+      display: none;
     }
-    .counter-pill.visible { opacity: 1; }
-    .counter-pill span { color: var(--color-primary); }
+    .total-elapsed-badge.visible { display: inline-block; }
+
+    /* Enlarged Sets Indicator for Table Viewing */
+    .sets-banner {
+      background: var(--surface);
+      border: 1.5px solid var(--surface-border);
+      padding: 6px 18px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 2px;
+      visibility: hidden;
+      opacity: 0;
+      transition: 0.25s;
+    }
+    .sets-banner.visible { visibility: visible; opacity: 1; }
+    .sets-banner .label { font-size: 11px; font-weight: 800; color: var(--text-dim); letter-spacing: 1px; text-transform: uppercase; }
+    .sets-banner .val { font-size: 20px; font-weight: 900; color: var(--color-primary); font-family: var(--font-display); }
 
     .quick-adjust {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      margin-top: 18px;
+      gap: 6px;
       width: 100%;
     }
     .pill-btn {
@@ -248,88 +264,92 @@
       border: 1px solid var(--surface-border);
       color: var(--text-dim);
       font-size: 12px;
-      font-weight: 600;
-      padding: 7px 12px;
-      border-radius: 10px;
+      font-weight: 700;
+      padding: 6px 11px;
+      border-radius: 9px;
       cursor: pointer;
-      transition: 0.15s;
     }
     .pill-btn:active { background: rgba(255, 255, 255, 0.1); color: #fff; }
 
     .presets-carousel {
       width: 100%;
       display: flex;
-      gap: 8px;
+      gap: 6px;
       overflow-x: auto;
-      padding: 12px 4px 4px 4px;
       scrollbar-width: none;
+      padding: 2px 0;
     }
     .presets-carousel::-webkit-scrollbar { display: none; }
     .preset-chip {
       background: var(--surface);
       border: 1px solid var(--surface-border);
       color: var(--text-dim);
-      font-size: 12px;
-      font-weight: 600;
-      padding: 8px 14px;
-      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 7px 12px;
+      border-radius: 10px;
       white-space: nowrap;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
     }
-    .preset-chip.active {
-      border-color: var(--color-primary);
-      color: var(--text-main);
-    }
+    .preset-chip.active { border-color: var(--color-primary); color: #fff; }
 
     footer {
       width: 100%;
       max-width: 440px;
       display: flex;
-      gap: 12px;
-      padding-top: 14px;
+      gap: 8px;
+      padding-top: 6px;
     }
     .btn {
-      flex: 1;
-      height: 56px;
-      border-radius: 18px;
+      height: 52px;
+      border-radius: 16px;
       border: none;
-      font-size: 16px;
-      font-weight: 700;
+      font-size: 15px;
+      font-weight: 800;
       letter-spacing: 0.5px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      transition: 0.15s;
+      gap: 6px;
+      transition: 0.12s;
     }
     .btn:active { transform: scale(0.97); }
     .btn-primary {
+      flex: 1;
       background: var(--color-primary);
       color: #000;
-      box-shadow: 0 4px 16px rgba(var(--color-primary-rgb), 0.3);
+      box-shadow: 0 4px 14px rgba(var(--color-primary-rgb), 0.35);
     }
     .btn-secondary {
       background: var(--surface);
       border: 1px solid var(--surface-border);
       color: var(--text-main);
-      max-width: 80px;
+      padding: 0 16px;
     }
+    .btn-end {
+      background: rgba(255, 51, 75, 0.15);
+      border: 1px solid rgba(255, 51, 75, 0.35);
+      color: #ff4d63;
+      padding: 0 14px;
+      font-size: 12px;
+      font-weight: 800;
+      display: none;
+    }
+    .btn-end.visible { display: flex; }
 
+    /* Modals & Drawers */
     .drawer {
       position: fixed;
       bottom: -100%;
       left: 0;
       right: 0;
-      background: #0d0f15;
-      border-top: 1px solid #1f2433;
-      border-radius: 26px 26px 0 0;
-      padding: 20px 20px calc(24px + env(safe-area-inset-bottom, 0px)) 20px;
+      background: #0d1017;
+      border-top: 1px solid #1e2638;
+      border-radius: 24px 24px 0 0;
+      padding: 20px 20px calc(20px + env(safe-area-inset-bottom, 0px)) 20px;
       z-index: 100;
-      transition: bottom 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: bottom 0.28s cubic-bezier(0.16, 1, 0.3, 1);
       max-width: 480px;
       margin: 0 auto;
     }
@@ -337,30 +357,31 @@
     .drawer-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.7);
+      background: rgba(0, 0, 0, 0.75);
       backdrop-filter: blur(4px);
       z-index: 99;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.25s;
+      transition: opacity 0.2s;
     }
     .drawer-overlay.open { opacity: 1; pointer-events: auto; }
+    .drawer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+    .drawer-title { font-size: 17px; font-weight: 800; color: #fff; }
 
-    .drawer-header {
+    .summary-card {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: 16px;
+      padding: 16px;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 18px;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 16px;
     }
-    .drawer-title { font-size: 17px; font-weight: 700; color: #fff; }
-    .drawer-section-label {
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      font-weight: 700;
-      color: var(--text-dim);
-      margin: 14px 0 8px 0;
-    }
+    .summary-row { display: flex; justify-content: space-between; align-items: center; }
+    .summary-label { font-size: 13px; font-weight: 600; color: var(--text-dim); }
+    .summary-val { font-size: 17px; font-weight: 800; color: var(--text-main); font-variant-numeric: tabular-nums; }
+    .summary-val.highlight { color: var(--color-primary); font-size: 20px; }
 
     .style-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
     .style-card {
@@ -371,14 +392,10 @@
       cursor: pointer;
       text-align: center;
       font-size: 13px;
-      font-weight: 600;
+      font-weight: 700;
       color: var(--text-dim);
     }
-    .style-card.selected {
-      border-color: var(--color-primary);
-      color: #fff;
-      background: rgba(255, 255, 255, 0.05);
-    }
+    .style-card.selected { border-color: var(--color-primary); color: #fff; background: rgba(255, 255, 255, 0.05); }
 
     .color-swatches { display: flex; gap: 10px; margin-top: 8px; }
     .swatch {
@@ -387,51 +404,21 @@
       border-radius: 10px;
       cursor: pointer;
       border: 2px solid transparent;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
     .swatch.selected { border-color: #fff; }
 
-    .roller-modal-body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 16px;
-      padding: 16px 0;
-    }
-    .roller-col {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+    .roller-modal-body { display: flex; justify-content: center; align-items: center; gap: 14px; padding: 14px 0; }
     .roller-col select {
-      background: #141822;
-      border: 1px solid #252c3d;
+      background: #141824;
+      border: 1px solid #252e42;
       color: #fff;
-      font-size: 28px;
-      font-weight: 700;
-      padding: 8px 16px;
-      border-radius: 14px;
-      outline: none;
-      font-family: inherit;
-    }
-    .roller-label {
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--text-dim);
-      margin-top: 6px;
-      text-transform: uppercase;
+      font-size: 26px;
+      font-weight: 800;
+      padding: 8px 14px;
+      border-radius: 12px;
     }
 
-    .history-list {
-      max-height: 220px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin-top: 10px;
-    }
+    .history-list { max-height: 200px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
     .history-item {
       background: var(--surface);
       border: 1px solid var(--surface-border);
@@ -441,18 +428,9 @@
       justify-content: space-between;
       align-items: center;
     }
-    .history-item-date { font-size: 13px; font-weight: 600; }
-    .history-item-meta { font-size: 12px; color: var(--text-dim); }
-    .history-delete-btn {
-      background: transparent;
-      border: none;
-      color: #ff4757;
-      cursor: pointer;
-      padding: 4px;
-    }
   </style>
 </head>
-<body class="style-chrono color-green">
+<body class="style-chrono color-amber">
 
   <header>
     <div class="brand">LODI<span>TIMER</span></div>
@@ -460,7 +438,7 @@
       <button class="icon-btn" id="openHistoryBtn" title="Session History">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
       </button>
-      <button class="icon-btn" id="openStudioBtn" title="Theme & Dial Studio">
+      <button class="icon-btn" id="openStudioBtn" title="Theme Studio">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
       </button>
     </div>
@@ -472,22 +450,27 @@
   </div>
 
   <main>
+    <div class="origin-badge" id="originBadge">ROUTINE: <span>60s</span></div>
+
     <div class="dial-stage" id="dialStage">
-      <svg class="dial-svg" viewBox="0 0 320 320">
-        <circle class="ring-bg" cx="160" cy="160" r="140" />
-        <circle class="ring-progress" id="ringProgress" cx="160" cy="160" r="140" stroke-dasharray="879.64" stroke-dashoffset="0" />
+      <svg class="dial-svg" viewBox="0 0 300 300">
+        <circle class="ring-bg" cx="150" cy="150" r="130" />
+        <circle class="ring-progress" id="ringProgress" cx="150" cy="150" r="130" stroke-dasharray="816.81" stroke-dashoffset="0" />
       </svg>
       <div class="ticks-container" id="ticksContainer"></div>
 
       <div class="dial-content">
-        <div class="state-badge" id="stateBadge">60S ROUTINE</div>
+        <div class="state-badge" id="stateBadge">READY</div>
         <div class="main-digits" id="mainDigits">60</div>
-        <div class="sub-hint" id="subHint">drag or wheel to scrub</div>
+        <div class="sub-hint" id="subHint">drag to scrub</div>
+        <div class="total-elapsed-badge" id="totalElapsedBadge">TOTAL: 00:00</div>
       </div>
     </div>
 
-    <div class="counter-pill" id="counterPill">
-      Completed Sets: <span id="counterValue">1</span>
+    <!-- Prominent Sets Display -->
+    <div class="sets-banner" id="setsBanner">
+      <span class="label">Completed Sets</span>
+      <span class="val" id="completedSetsValue">0</span>
     </div>
 
     <div class="quick-adjust" id="quickAdjustBar">
@@ -510,10 +493,38 @@
     <button class="btn btn-secondary" id="resetBtn" title="Reset">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 109-9 9.75 9.75 0 00-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
     </button>
+    <button class="btn btn-end" id="endSessionBtn">END SESSION</button>
     <button class="btn btn-primary" id="mainActionBtn">START</button>
   </footer>
 
   <div class="drawer-overlay" id="overlay"></div>
+
+  <!-- Session Summary Drawer -->
+  <div class="drawer" id="summaryDrawer">
+    <div class="drawer-header">
+      <div class="drawer-title">Workout Summary</div>
+      <button class="icon-btn" id="closeSummaryBtn">✕</button>
+    </div>
+    <div class="summary-card">
+      <div class="summary-row">
+        <span class="summary-label">Completed Sets</span>
+        <span class="summary-val highlight" id="sumSets">0</span>
+      </div>
+      <div class="summary-row">
+        <span class="summary-label">Active Exercise Time</span>
+        <span class="summary-val" id="sumActiveTime">00:00</span>
+      </div>
+      <div class="summary-row">
+        <span class="summary-label">Total Break / Rest Time</span>
+        <span class="summary-val" id="sumRestTime">00:00</span>
+      </div>
+      <div class="summary-row" style="border-top: 1px solid var(--surface-border); padding-top: 10px; margin-top: 2px;">
+        <span class="summary-label" style="font-weight: 800; color: #fff;">Total Routine Duration</span>
+        <span class="summary-val highlight" id="sumTotalTime">00:00</span>
+      </div>
+    </div>
+    <button class="btn btn-primary" id="finishAndSaveBtn" style="width: 100%; height: 50px;">Complete & Save Session</button>
+  </div>
 
   <!-- Studio Drawer -->
   <div class="drawer" id="studioDrawer">
@@ -521,30 +532,25 @@
       <div class="drawer-title">Dial Studio & Skins</div>
       <button class="icon-btn" id="closeStudioBtn">✕</button>
     </div>
-
-    <div class="drawer-section-label">Dial Architecture</div>
+    <div class="drawer-section-label" style="font-size: 11px; text-transform: uppercase; font-weight: 700; color: var(--text-dim); margin-bottom: 8px;">Architecture</div>
     <div class="style-grid">
       <div class="style-card selected" data-style="chrono">Chrono Minimal</div>
       <div class="style-card" data-style="ticks">Tachymeter Ticks</div>
       <div class="style-card" data-style="segment">Retro Segment</div>
       <div class="style-card" data-style="monolith">Solid Monolith</div>
     </div>
-
-    <div class="drawer-section-label">Accent Luminescence</div>
+    <div class="drawer-section-label" style="font-size: 11px; text-transform: uppercase; font-weight: 700; color: var(--text-dim); margin: 14px 0 8px 0;">Color</div>
     <div class="color-swatches">
-      <div class="swatch selected" data-color="green" style="background: #00e676;"></div>
+      <div class="swatch selected" data-color="amber" style="background: #ffb300;"></div>
+      <div class="swatch" data-color="green" style="background: #00e676;"></div>
       <div class="swatch" data-color="cyan" style="background: #00d4ff;"></div>
-      <div class="swatch" data-color="amber" style="background: #ffb300;"></div>
       <div class="swatch" data-color="crimson" style="background: #ff334b;"></div>
       <div class="swatch" data-color="white" style="background: #e6edfa;"></div>
     </div>
-
-    <button class="btn btn-primary" id="saveDefaultThemeBtn" style="margin-top: 20px; width: 100%; height: 46px; font-size: 14px;">
-      Save As Permanent Default
-    </button>
+    <button class="btn btn-primary" id="saveDefaultThemeBtn" style="margin-top: 18px; width: 100%; height: 46px; font-size: 14px;">Save Default</button>
   </div>
 
-  <!-- Roller Time Picker Drawer -->
+  <!-- Roller Drawer -->
   <div class="drawer" id="rollerDrawer">
     <div class="drawer-header">
       <div class="drawer-title">Exact Time Setter</div>
@@ -553,30 +559,23 @@
     <div class="roller-modal-body">
       <div class="roller-col">
         <select id="rollerMinutes"></select>
-        <div class="roller-label">Minutes</div>
       </div>
-      <div style="font-size: 32px; font-weight: 800; color: var(--text-dim);">:</div>
+      <div style="font-size: 28px; font-weight: 800; color: var(--text-dim);">:</div>
       <div class="roller-col">
         <select id="rollerSeconds"></select>
-        <div class="roller-label">Seconds</div>
       </div>
     </div>
-    <button class="btn btn-primary" id="applyRollerBtn" style="width: 100%; height: 48px; margin-top: 14px;">Set Countdown</button>
+    <button class="btn btn-primary" id="applyRollerBtn" style="width: 100%; height: 48px; margin-top: 10px;">Set Timer</button>
   </div>
 
   <!-- History Drawer -->
   <div class="drawer" id="historyDrawer">
     <div class="drawer-header">
-      <div class="drawer-title">Exercise Sessions</div>
+      <div class="drawer-title">Session History</div>
       <button class="icon-btn" id="closeHistoryBtn">✕</button>
     </div>
-    <div style="font-size: 12px; color: var(--text-dim); margin-bottom: 8px;">
-      *Only 60s spinal routine sessions are logged.
-    </div>
     <div class="history-list" id="historyListContainer"></div>
-    <button class="btn btn-secondary" id="exportCsvBtn" style="width: 100%; max-width: 100%; height: 44px; margin-top: 14px; font-size: 13px;">
-      Export to CSV (Google Sheets)
-    </button>
+    <button class="btn btn-secondary" id="exportCsvBtn" style="width: 100%; height: 44px; margin-top: 12px; font-size: 13px;">Export to CSV (Sheets)</button>
   </div>
 
   <script>
@@ -586,32 +585,56 @@
     let timerState = 'idle';
     let timerInterval = null;
     let restSeconds = 0;
+    let totalAccumulatedRest = 0;
     let completedSets = 0;
     let wakeLock = null;
 
     let stopwatchSeconds = 0;
     let stopwatchInterval = null;
 
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    function playBeep(freq = 880, duration = 0.12, type = 'sine') {
-      try {
-        if (audioCtx.state === 'suspended') audioCtx.resume();
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = type;
-        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-        gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start();
-        osc.stop(audioCtx.currentTime + duration);
-      } catch (e) {}
+    // High Acoustic Audio Engine
+    let audioCtx = null;
+    function getAudioContext() {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      return audioCtx;
     }
 
-    function playBeepSequence(count, intervalMs = 260) {
+    function playTone(freq, duration, type = 'square', gainLevel = 0.35) {
+      try {
+        const ctx = getAudioContext();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, ctx.currentTime);
+        gain.gain.setValueAtTime(gainLevel, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + duration);
+      } catch(e) {}
+    }
+
+    // Loud multi-harmonic chime on countdown end
+    function playEndCountdownChime() {
+      for (let i = 0; i < 3; i++) {
+        setTimeout(() => {
+          playTone(960, 0.26, 'square', 0.4);
+          playTone(480, 0.26, 'sine', 0.5);
+          if ('vibrate' in navigator) navigator.vibrate(200);
+        }, i * 320);
+      }
+    }
+
+    // Distinct minute interval rest pips (e.g. 3 beeps spaced by 380ms)
+    function playRestMilestonePips(count) {
       for (let i = 0; i < count; i++) {
-        setTimeout(() => playBeep(920, 0.14), i * intervalMs);
+        setTimeout(() => {
+          playTone(880, 0.20, 'square', 0.45);
+          playTone(440, 0.20, 'triangle', 0.4);
+          if ('vibrate' in navigator) navigator.vibrate(120);
+        }, i * 380);
       }
     }
 
@@ -640,9 +663,12 @@
     const mainDigits = document.getElementById('mainDigits');
     const stateBadge = document.getElementById('stateBadge');
     const ringProgress = document.getElementById('ringProgress');
-    const counterPill = document.getElementById('counterPill');
-    const counterValue = document.getElementById('counterValue');
+    const originBadge = document.getElementById('originBadge');
+    const setsBanner = document.getElementById('setsBanner');
+    const completedSetsValue = document.getElementById('completedSetsValue');
+    const totalElapsedBadge = document.getElementById('totalElapsedBadge');
     const mainActionBtn = document.getElementById('mainActionBtn');
+    const endSessionBtn = document.getElementById('endSessionBtn');
     const resetBtn = document.getElementById('resetBtn');
     const subHint = document.getElementById('subHint');
 
@@ -653,15 +679,22 @@
     }
 
     function updateDisplay() {
-      const CIRCUMFERENCE = 879.64;
+      const CIRCUMFERENCE = 816.81;
+      originBadge.innerHTML = targetSeconds === 60 ? 'ROUTINE: <span>60s</span>' : `ORIGINAL: <span>${formatTime(targetSeconds)}</span>`;
+
       if (mode === 'countdown') {
         if (timerState === 'resting') {
           mainDigits.textContent = formatTime(restSeconds);
           stateBadge.textContent = 'REST / BREAK';
-          subHint.textContent = 'Press > for next set';
+          subHint.textContent = 'Tap NEXT SET (>)';
           ringProgress.style.strokeDashoffset = '0';
+          
+          totalElapsedBadge.textContent = `TOTAL: ${formatTime(targetSeconds + restSeconds)}`;
+          totalElapsedBadge.classList.add('visible');
           return;
         }
+
+        totalElapsedBadge.classList.remove('visible');
 
         if (targetSeconds <= 60) {
           mainDigits.textContent = remainingSeconds;
@@ -670,33 +703,29 @@
         }
 
         const progress = (targetSeconds - remainingSeconds) / targetSeconds;
-        const offset = CIRCUMFERENCE * progress;
-        ringProgress.style.strokeDashoffset = -offset;
+        ringProgress.style.strokeDashoffset = -(CIRCUMFERENCE * progress);
 
         const activeTicks = Math.round((remainingSeconds / targetSeconds) * 60);
         const ticks = ticksContainer.children;
-        for (let i = 0; i < 60; i++) {
-          ticks[i].classList.toggle('active', i < activeTicks);
-        }
+        for (let i = 0; i < 60; i++) ticks[i].classList.toggle('active', i < activeTicks);
 
         if (timerState === 'idle') {
-          stateBadge.textContent = targetSeconds === 60 ? '60S ROUTINE' : 'CUSTOM TIMER';
-          subHint.textContent = 'drag or wheel to scrub';
+          stateBadge.textContent = 'READY';
+          subHint.textContent = 'drag to scrub';
         } else if (timerState === 'running') {
-          stateBadge.textContent = 'EXERCISING';
-          subHint.textContent = 'keep posture aligned';
+          stateBadge.textContent = 'RUNNING';
+          subHint.textContent = 'in session';
         }
       } else {
         const hrs = Math.floor(stopwatchSeconds / 3600);
         const mins = Math.floor((stopwatchSeconds % 3600) / 60);
         const secs = stopwatchSeconds % 60;
-        if (hrs > 0) {
-          mainDigits.textContent = `${String(hrs).padStart(2, '0')}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
-        } else {
-          mainDigits.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
-        }
+        mainDigits.textContent = hrs > 0 
+          ? `${String(hrs).padStart(2, '0')}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`
+          : `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
         stateBadge.textContent = 'STOPWATCH';
-        subHint.textContent = 'count up mode';
+        subHint.textContent = 'elapsed';
+        totalElapsedBadge.classList.remove('visible');
       }
     }
 
@@ -715,13 +744,13 @@
           remainingSeconds = 0;
           updateDisplay();
           clearInterval(timerInterval);
+
           completedSets++;
-          counterValue.textContent = completedSets;
-          counterPill.classList.add('visible');
+          completedSetsValue.textContent = completedSets;
+          setsBanner.classList.add('visible');
+          endSessionBtn.classList.add('visible');
 
-          playBeepSequence(3, 180);
-          if ('vibrate' in navigator) navigator.vibrate([150, 80, 150]);
-
+          playEndCountdownChime();
           startRestInterval();
         }
       }, 1000);
@@ -737,18 +766,13 @@
 
       timerInterval = setInterval(() => {
         restSeconds++;
+        totalAccumulatedRest++;
         updateDisplay();
 
+        // Distinct milestone beeps per minute: 1 beep at 1m, 2 at 2m, etc.
         if (restSeconds > 0 && restSeconds % 60 === 0) {
           const minuteNumber = restSeconds / 60;
-          if (minuteNumber <= 4) {
-            playBeepSequence(minuteNumber, 240);
-          } else if (minuteNumber >= 5) {
-            playBeepSequence(5, 180);
-            pauseTimer();
-            stateBadge.textContent = 'AUTO-STOPPED (IDLE)';
-            releaseWakeLock();
-          }
+          playRestMilestonePips(minuteNumber);
         }
       }, 1000);
     }
@@ -765,30 +789,23 @@
     function resetTimer() {
       clearInterval(timerInterval);
       timerInterval = null;
-      if (targetSeconds === 60 && completedSets > 0) {
-        saveSessionRecord(completedSets);
-      }
       timerState = 'idle';
       remainingSeconds = targetSeconds;
       restSeconds = 0;
-      completedSets = 0;
-      counterPill.classList.remove('visible');
+      updateDisplay();
       mainActionBtn.textContent = 'START';
       mainActionBtn.classList.remove('btn-secondary');
       mainActionBtn.classList.add('btn-primary');
       releaseWakeLock();
-      updateDisplay();
     }
 
     mainActionBtn.addEventListener('click', () => {
+      getAudioContext();
       if (mode === 'countdown') {
-        if (timerState === 'idle') {
-          startCountdown();
-        } else if (timerState === 'running') {
-          pauseTimer();
-        } else if (timerState === 'paused') {
-          startCountdown();
-        } else if (timerState === 'resting') {
+        if (timerState === 'idle') startCountdown();
+        else if (timerState === 'running') pauseTimer();
+        else if (timerState === 'paused') startCountdown();
+        else if (timerState === 'resting') {
           clearInterval(timerInterval);
           remainingSeconds = targetSeconds;
           startCountdown();
@@ -810,9 +827,8 @@
     });
 
     resetBtn.addEventListener('click', () => {
-      if (mode === 'countdown') {
-        resetTimer();
-      } else {
+      if (mode === 'countdown') resetTimer();
+      else {
         clearInterval(stopwatchInterval);
         stopwatchInterval = null;
         stopwatchSeconds = 0;
@@ -822,13 +838,37 @@
       }
     });
 
+    // End Session Summary Logic
+    endSessionBtn.addEventListener('click', () => {
+      pauseTimer();
+      document.getElementById('sumSets').textContent = completedSets;
+      const activeSecs = completedSets * targetSeconds;
+      document.getElementById('sumActiveTime').textContent = formatTime(activeSecs);
+      document.getElementById('sumRestTime').textContent = formatTime(totalAccumulatedRest);
+      document.getElementById('sumTotalTime').textContent = formatTime(activeSecs + totalAccumulatedRest);
+      openDrawer('summaryDrawer');
+    });
+
+    document.getElementById('finishAndSaveBtn').addEventListener('click', () => {
+      if (completedSets > 0) {
+        saveSessionRecord(completedSets, completedSets * targetSeconds, totalAccumulatedRest);
+      }
+      closeAllDrawers();
+      completedSets = 0;
+      totalAccumulatedRest = 0;
+      setsBanner.classList.remove('visible');
+      endSessionBtn.classList.remove('visible');
+      resetTimer();
+    });
+
+    // Scrubbing via Wheel & Touch Drag
     const dialStage = document.getElementById('dialStage');
     let startY = 0;
     dialStage.addEventListener('wheel', (e) => {
       if (timerState !== 'idle') return;
       e.preventDefault();
       const delta = e.deltaY < 0 ? 5 : -5;
-      targetSeconds = Math.max(5, Math.min(3600, targetSeconds + delta));
+      targetSeconds = Math.max(5, Math.min(7200, targetSeconds + delta));
       remainingSeconds = targetSeconds;
       updateDisplay();
     }, { passive: false });
@@ -841,9 +881,9 @@
       if (timerState !== 'idle') return;
       const currentY = e.touches[0].clientY;
       const diff = startY - currentY;
-      if (Math.abs(diff) > 18) {
+      if (Math.abs(diff) > 16) {
         const step = diff > 0 ? 5 : -5;
-        targetSeconds = Math.max(5, Math.min(3600, targetSeconds + step));
+        targetSeconds = Math.max(5, Math.min(7200, targetSeconds + step));
         remainingSeconds = targetSeconds;
         startY = currentY;
         updateDisplay();
@@ -854,7 +894,7 @@
       const btn = e.target.closest('button[data-sec]');
       if (!btn || timerState !== 'idle') return;
       const val = btn.dataset.sec;
-      if (val.startsWith('+')) targetSeconds = Math.min(3600, targetSeconds + parseInt(val.slice(1)));
+      if (val.startsWith('+')) targetSeconds = Math.min(7200, targetSeconds + parseInt(val.slice(1)));
       else if (val.startsWith('-')) targetSeconds = Math.max(5, targetSeconds - parseInt(val.slice(1)));
       else targetSeconds = parseInt(val);
       remainingSeconds = targetSeconds;
@@ -871,6 +911,7 @@
       updateDisplay();
     });
 
+    // Drawers
     const overlay = document.getElementById('overlay');
     function openDrawer(id) {
       overlay.classList.add('open');
@@ -882,6 +923,7 @@
     }
     overlay.addEventListener('click', closeAllDrawers);
 
+    document.getElementById('closeSummaryBtn').addEventListener('click', closeAllDrawers);
     document.getElementById('openStudioBtn').addEventListener('click', () => openDrawer('studioDrawer'));
     document.getElementById('closeStudioBtn').addEventListener('click', closeAllDrawers);
 
@@ -904,16 +946,16 @@
     });
 
     document.getElementById('saveDefaultThemeBtn').addEventListener('click', () => {
-      const currentStyle = document.querySelector('.style-card.selected')?.dataset.style || 'chrono';
-      const currentColor = document.querySelector('.swatch.selected')?.dataset.color || 'green';
-      localStorage.setItem('lodi_default_style', currentStyle);
-      localStorage.setItem('lodi_default_color', currentColor);
+      const style = document.querySelector('.style-card.selected')?.dataset.style || 'chrono';
+      const color = document.querySelector('.swatch.selected')?.dataset.color || 'amber';
+      localStorage.setItem('lodi_default_style', style);
+      localStorage.setItem('lodi_default_color', color);
       closeAllDrawers();
     });
 
     const mSel = document.getElementById('rollerMinutes');
     const sSel = document.getElementById('rollerSeconds');
-    for (let i = 0; i <= 60; i++) mSel.add(new Option(String(i).padStart(2, '0'), i));
+    for (let i = 0; i <= 90; i++) mSel.add(new Option(String(i).padStart(2, '0'), i));
     for (let i = 0; i < 60; i += 5) sSel.add(new Option(String(i).padStart(2, '0'), i));
 
     document.getElementById('openRollerBtn').addEventListener('click', () => {
@@ -936,14 +978,17 @@
     function getHistory() {
       return JSON.parse(localStorage.getItem('lodi_timer_history') || '[]');
     }
-    function saveSessionRecord(sets) {
+    function saveSessionRecord(sets, activeSecs, restSecs) {
       const history = getHistory();
       const now = new Date();
       history.unshift({
         id: Date.now(),
         dateStr: now.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }),
         timeStr: now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
-        sets: sets
+        sets,
+        activeSecs,
+        restSecs,
+        totalSecs: activeSecs + restSecs
       });
       localStorage.setItem('lodi_timer_history', JSON.stringify(history.slice(0, 100)));
     }
@@ -953,7 +998,7 @@
       const container = document.getElementById('historyListContainer');
       container.innerHTML = '';
       if (!history.length) {
-        container.innerHTML = '<div style="color:var(--text-dim);font-size:13px;padding:12px 0;">No completed 60s sessions logged yet.</div>';
+        container.innerHTML = '<div style="color:var(--text-dim);font-size:13px;padding:12px 0;">No completed sessions logged yet.</div>';
         return;
       }
       history.forEach(item => {
@@ -961,10 +1006,10 @@
         row.className = 'history-item';
         row.innerHTML = `
           <div>
-            <div class="history-item-date">${item.dateStr} at ${item.timeStr}</div>
-            <div class="history-item-meta">60s × ${item.sets} Sets</div>
+            <div style="font-size:13px;font-weight:700;">${item.dateStr} at ${item.timeStr}</div>
+            <div style="font-size:11px;color:var(--text-dim);">Sets: ${item.sets} • Active: ${formatTime(item.activeSecs || 0)} • Rest: ${formatTime(item.restSecs || 0)}</div>
           </div>
-          <button class="history-delete-btn" data-id="${item.id}" title="Delete session">✕</button>
+          <button style="background:none;border:none;color:#ff4d63;cursor:pointer;padding:4px;" data-id="${item.id}">✕</button>
         `;
         container.appendChild(row);
       });
@@ -977,9 +1022,9 @@
     document.getElementById('closeHistoryBtn').addEventListener('click', closeAllDrawers);
 
     document.getElementById('historyListContainer').addEventListener('click', (e) => {
-      const btn = e.target.closest('.history-delete-btn');
+      const btn = e.target.closest('button[data-id]');
       if (!btn) return;
-      if (confirm('Delete this routine session?')) {
+      if (confirm('Delete this routine entry?')) {
         const id = parseInt(btn.dataset.id);
         const updated = getHistory().filter(h => h.id !== id);
         localStorage.setItem('lodi_timer_history', JSON.stringify(updated));
@@ -990,42 +1035,38 @@
     document.getElementById('exportCsvBtn').addEventListener('click', () => {
       const history = getHistory();
       if (!history.length) return alert('No session records to export.');
-      let csv = 'ID,Date,Time,Routine,Sets\n';
+      let csv = 'ID,Date,Time,Sets,ActiveTime(s),RestTime(s),TotalTime(s)\n';
       history.forEach(h => {
-        csv += `${h.id},"${h.dateStr}","${h.timeStr}",60s Routine,${h.sets}\n`;
+        csv += `${h.id},"${h.dateStr}","${h.timeStr}",${h.sets},${h.activeSecs || 0},${h.restSecs || 0},${h.totalSecs || 0}\n`;
       });
       const blob = new Blob([csv], { type: 'text/csv' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `lodi-timer-history-${new Date().toISOString().slice(0, 10)}.csv`;
+      a.download = `lodi-timer-${new Date().toISOString().slice(0, 10)}.csv`;
       a.click();
       URL.revokeObjectURL(url);
     });
 
     const tabCountdown = document.getElementById('tabCountdown');
     const tabStopwatch = document.getElementById('tabStopwatch');
-    const quickAdjust = document.getElementById('quickAdjustBar');
-    const presetsBar = document.getElementById('presetsBar');
-
     tabCountdown.addEventListener('click', () => {
       if (mode === 'countdown') return;
       mode = 'countdown';
       tabCountdown.classList.add('active');
       tabStopwatch.classList.remove('active');
-      quickAdjust.style.display = 'flex';
-      presetsBar.style.display = 'flex';
+      document.getElementById('quickAdjustBar').style.display = 'flex';
+      document.getElementById('presetsBar').style.display = 'flex';
       resetTimer();
     });
-
     tabStopwatch.addEventListener('click', () => {
       if (mode === 'stopwatch') return;
       mode = 'stopwatch';
       tabStopwatch.classList.add('active');
       tabCountdown.classList.remove('active');
-      quickAdjust.style.display = 'none';
-      presetsBar.style.display = 'none';
-      counterPill.classList.remove('visible');
+      document.getElementById('quickAdjustBar').style.display = 'none';
+      document.getElementById('presetsBar').style.display = 'none';
+      setsBanner.classList.remove('visible');
       stopwatchSeconds = 0;
       mainActionBtn.textContent = 'START';
       mainActionBtn.classList.remove('btn-secondary');
@@ -1033,17 +1074,12 @@
       updateDisplay();
     });
 
-    (function initSavedPrefs() {
+    (function initPrefs() {
       const savedStyle = localStorage.getItem('lodi_default_style') || 'chrono';
-      const savedColor = localStorage.getItem('lodi_default_color') || 'green';
+      const savedColor = localStorage.getItem('lodi_default_color') || 'amber';
       document.body.className = `style-${savedStyle} color-${savedColor}`;
-
-      document.querySelectorAll('.style-card').forEach(c => {
-        c.classList.toggle('selected', c.dataset.style === savedStyle);
-      });
-      document.querySelectorAll('.swatch').forEach(s => {
-        s.classList.toggle('selected', s.dataset.color === savedColor);
-      });
+      document.querySelectorAll('.style-card').forEach(c => c.classList.toggle('selected', c.dataset.style === savedStyle));
+      document.querySelectorAll('.swatch').forEach(s => s.classList.toggle('selected', s.dataset.color === savedColor));
     })();
 
     updateDisplay();
