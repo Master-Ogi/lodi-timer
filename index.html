@@ -1,4 +1,3 @@
-HTML
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -59,8 +58,26 @@ HTML
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
-      padding: env(safe-area-inset-top, 8px) 12px env(safe-area-inset-bottom, 12px) 12px;
+      padding: env(safe-area-inset-top, 6px) 12px env(safe-area-inset-bottom, 12px) 12px;
     }
+
+    /* WHATSAPP IN-APP BROWSER DETECT BANNER */
+    .inapp-banner {
+      width: 100%;
+      max-width: 500px;
+      background: #ffb300;
+      color: #000;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 6px 12px;
+      border-radius: 10px;
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 4px;
+      box-shadow: 0 4px 12px rgba(255, 179, 0, 0.3);
+    }
+    .inapp-banner.visible { display: flex; }
 
     header {
       width: 100%;
@@ -87,6 +104,25 @@ HTML
     }
     .icon-btn:active { transform: scale(0.92); }
 
+    /* SMART INSTALL CALLOUT BUTTON */
+    .install-callout-btn {
+      background: rgba(255, 179, 0, 0.12);
+      border: 1.5px solid var(--color-primary);
+      color: var(--color-primary);
+      width: 100%;
+      max-width: 440px;
+      padding: 8px 14px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 800;
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      margin-bottom: 6px;
+    }
+    .install-callout-btn.visible { display: flex; }
+
     .nav-tabs {
       background: var(--surface);
       border: 1px solid var(--surface-border);
@@ -96,7 +132,7 @@ HTML
       gap: 3px;
       width: 100%;
       max-width: 440px;
-      margin: 4px 0 8px 0;
+      margin: 2px 0 6px 0;
     }
     .tab-btn {
       flex: 1;
@@ -136,13 +172,13 @@ HTML
       letter-spacing: 1px;
       color: var(--text-dim);
       text-transform: uppercase;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
     .origin-badge span { color: var(--color-primary); }
 
     .dial-stage {
-      width: min(70vw, 275px);
-      height: min(70vw, 275px);
+      width: min(68vw, 270px);
+      height: min(68vw, 270px);
       position: relative;
       display: flex;
       align-items: center;
@@ -174,7 +210,7 @@ HTML
       width: 2px;
       height: 10px;
       background: rgba(255, 255, 255, 0.15);
-      transform-origin: center -122px;
+      transform-origin: center -120px;
       border-radius: 1px;
     }
     .tick.active { background: var(--color-primary); box-shadow: 0 0 5px rgba(var(--color-primary-rgb), 0.7); }
@@ -203,7 +239,7 @@ HTML
 
     .main-digits {
       font-family: var(--font-display);
-      font-size: clamp(62px, 17vw, 82px);
+      font-size: clamp(62px, 17vw, 80px);
       font-weight: 900;
       line-height: 0.95;
       color: var(--text-main);
@@ -234,14 +270,14 @@ HTML
       display: flex;
       align-items: center;
       gap: 8px;
-      margin-top: 8px;
+      margin-top: 6px;
       visibility: hidden;
       opacity: 0;
       transition: 0.25s;
     }
     .sets-banner.visible { visibility: visible; opacity: 1; }
     .sets-banner .label { font-size: 11px; font-weight: 800; color: var(--text-dim); letter-spacing: 1px; text-transform: uppercase; }
-    .sets-banner .val { font-size: 22px; font-weight: 900; color: var(--color-primary); font-family: var(--font-display); }
+    .sets-banner .val { font-size: 20px; font-weight: 900; color: var(--color-primary); font-family: var(--font-display); }
 
     .quick-adjust {
       display: flex;
@@ -249,7 +285,7 @@ HTML
       justify-content: center;
       gap: 6px;
       width: 100%;
-      margin-top: 10px;
+      margin-top: 8px;
     }
     .pill-btn {
       background: var(--surface);
@@ -269,7 +305,7 @@ HTML
       gap: 6px;
       overflow-x: auto;
       scrollbar-width: none;
-      padding: 8px 0 2px 0;
+      padding: 6px 0 2px 0;
     }
     .presets-carousel::-webkit-scrollbar { display: none; }
     .preset-chip {
@@ -331,7 +367,7 @@ HTML
     .timer-card-body { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 4px 0; }
     .timer-card-digits {
       font-family: var(--font-display);
-      font-size: 32px;
+      font-size: 30px;
       font-weight: 900;
       line-height: 1;
       font-variant-numeric: tabular-nums;
@@ -426,12 +462,8 @@ HTML
     .drawer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
     .drawer-title { font-size: 16px; font-weight: 800; color: #fff; }
 
-    /* INFO & INSTALL MODAL */
-    .lang-switcher {
-      display: flex;
-      gap: 6px;
-      margin-bottom: 14px;
-    }
+    /* INFO & INSTALL GUIDE */
+    .lang-switcher { display: flex; gap: 6px; margin-bottom: 14px; }
     .lang-btn {
       flex: 1;
       height: 32px;
@@ -443,11 +475,7 @@ HTML
       border-radius: 8px;
       cursor: pointer;
     }
-    .lang-btn.active {
-      background: var(--color-primary);
-      color: #000;
-      border-color: var(--color-primary);
-    }
+    .lang-btn.active { background: var(--color-primary); color: #000; border-color: var(--color-primary); }
     .info-content {
       max-height: 320px;
       overflow-y: auto;
@@ -456,7 +484,7 @@ HTML
       color: #c4cddf;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
     }
     .info-step-box {
       background: rgba(255, 255, 255, 0.03);
@@ -467,7 +495,38 @@ HTML
     .info-step-box strong { color: var(--color-primary); }
     .rtl-text { direction: rtl; text-align: right; }
 
-    /* TEMPLATE POPOVER */
+    /* SETTINGS ROW & TOGGLES */
+    .settings-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--surface-border);
+    }
+    .settings-label { font-size: 13px; font-weight: 700; color: var(--text-main); }
+    .settings-sub { font-size: 11px; color: var(--text-dim); margin-top: 2px; }
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 44px;
+      height: 24px;
+    }
+    .toggle-switch input { opacity: 0; width: 0; height: 0; }
+    .slider {
+      position: absolute; cursor: pointer; inset: 0;
+      background-color: #252c3d;
+      transition: .2s;
+      border-radius: 24px;
+    }
+    .slider:before {
+      position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px;
+      background-color: white;
+      transition: .2s;
+      border-radius: 50%;
+    }
+    input:checked + .slider { background-color: var(--color-primary); }
+    input:checked + .slider:before { transform: translateX(20px); background-color: #000; }
+
     .template-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -557,6 +616,12 @@ HTML
 
   <div class="toast" id="toast">Link Copied!</div>
 
+  <!-- IN-APP BROWSER DETECT NOTICE -->
+  <div class="inapp-banner" id="inAppBanner">
+    <span>⚠️ Opened in WhatsApp. Tap <strong>⋮</strong> &rarr; <strong>Open in Chrome</strong> to install.</span>
+    <button style="background:none; border:none; color:#000; font-weight:900; font-size:14px; cursor:pointer;" id="closeInAppBanner">✕</button>
+  </div>
+
   <header>
     <div class="brand">LODI<span>TIMER</span></div>
     <div class="header-actions">
@@ -569,11 +634,17 @@ HTML
       <button class="icon-btn" id="openHistoryBtn" title="Session History">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
       </button>
-      <button class="icon-btn" id="openStudioBtn" title="Dial Studio">
+      <button class="icon-btn" id="openStudioBtn" title="Settings & Dial Studio">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
       </button>
     </div>
   </header>
+
+  <!-- 1-TAP INSTALL PROMPT BUTTON -->
+  <button class="install-callout-btn" id="installCalloutBtn">
+    <span>📲 Add App to Home Screen</span>
+    <span style="font-size: 10px; background: var(--color-primary); color: #000; padding: 2px 6px; border-radius: 6px;">INSTALL</span>
+  </button>
 
   <div class="nav-tabs">
     <button class="tab-btn active" id="tabRoutine">60s Routine</button>
@@ -665,16 +736,17 @@ HTML
       <button class="icon-btn" id="closeInfoBtn">✕</button>
     </div>
 
-    <!-- LANGUAGE SWITCHER -->
     <div class="lang-switcher">
       <button class="lang-btn active" data-lang="en">English</button>
       <button class="lang-btn" data-lang="pl">Polski</button>
       <button class="lang-btn" data-lang="he">עברית</button>
     </div>
 
-    <div class="info-content" id="infoContent">
-      <!-- Injected dynamically based on language -->
-    </div>
+    <div class="info-content" id="infoContent"></div>
+
+    <button class="btn btn-primary" id="drawerDirectInstallBtn" style="width:100%; height:44px; margin-top:12px; font-size:13px;">
+      📲 Install App Now
+    </button>
   </div>
 
   <!-- ADD TIMER MODAL -->
@@ -748,9 +820,31 @@ HTML
     <button class="btn btn-primary" id="finishAndSaveBtn" style="width: 100%; height: 48px;">Complete & Save Session</button>
   </div>
 
-  <!-- STUDIO DRAWER -->
+  <!-- SETTINGS & STUDIO DRAWER -->
   <div class="drawer" id="studioDrawer">
-    <div class="drawer-header"><div class="drawer-title">Dial Studio & Skins</div><button class="icon-btn" id="closeStudioBtn">✕</button></div>
+    <div class="drawer-header">
+      <div class="drawer-title">Settings & Dial Studio</div>
+      <button class="icon-btn" id="closeStudioBtn">✕</button>
+    </div>
+
+    <!-- PWA Install Control in Settings -->
+    <div class="settings-row">
+      <div>
+        <div class="settings-label">Home Screen Shortcut</div>
+        <div class="settings-sub">Display quick install button in main view</div>
+      </div>
+      <label class="toggle-switch">
+        <input type="checkbox" id="toggleInstallBtnPref" checked>
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div style="margin-top: 10px;">
+      <button class="btn btn-secondary" id="settingsInstallActionBtn" style="width: 100%; height: 40px; font-size: 12px; margin-bottom: 14px;">
+        📲 Install / Reinstall App Icon
+      </button>
+    </div>
+
     <div style="font-size: 11px; text-transform: uppercase; font-weight: 700; color: var(--text-dim); margin-bottom: 6px;">Architecture</div>
     <div class="style-grid">
       <div class="style-card selected" data-style="chrono">Chrono Minimal</div>
@@ -758,6 +852,7 @@ HTML
       <div class="style-card" data-style="segment">Retro Segment</div>
       <div class="style-card" data-style="monolith">Solid Monolith</div>
     </div>
+
     <div style="font-size: 11px; text-transform: uppercase; font-weight: 700; color: var(--text-dim); margin: 12px 0 6px 0;">Color</div>
     <div class="color-swatches">
       <div class="swatch selected" data-color="amber" style="background: #ffb300;"></div>
@@ -766,7 +861,7 @@ HTML
       <div class="swatch" data-color="crimson" style="background: #ff334b;"></div>
       <div class="swatch" data-color="white" style="background: #e6edfa;"></div>
     </div>
-    <button class="btn btn-primary" id="saveDefaultThemeBtn" style="margin-top: 16px; width: 100%; height: 44px; font-size: 13px;">Save Default</button>
+    <button class="btn btn-primary" id="saveDefaultThemeBtn" style="margin-top: 16px; width: 100%; height: 44px; font-size: 13px;">Save Default Settings</button>
   </div>
 
   <!-- ROLLER DRAWER -->
@@ -789,6 +884,62 @@ HTML
 
   <script>
     if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(() => {});
+
+    // IN-APP BROWSER (WHATSAPP) DETECTION
+    const ua = navigator.userAgent || navigator.vendor || window.opera;
+    const isWhatsApp = /WhatsApp/i.test(ua);
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+
+    if (isWhatsApp) {
+      document.getElementById('inAppBanner').classList.add('visible');
+    }
+    document.getElementById('closeInAppBanner').addEventListener('click', () => {
+      document.getElementById('inAppBanner').classList.remove('visible');
+    });
+
+    // PWA DEFERRED INSTALL LOGIC
+    let deferredPrompt = null;
+    const installCalloutBtn = document.getElementById('installCalloutBtn');
+    let showInstallPref = localStorage.getItem('lodi_show_install_btn') !== 'false';
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      if (!isStandalone && showInstallPref) {
+        installCalloutBtn.classList.add('visible');
+      }
+    });
+
+    async function triggerPWAInstall() {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+          installCalloutBtn.classList.remove('visible');
+        }
+        deferredPrompt = null;
+      } else {
+        setInfoLanguage('en');
+        openDrawer('infoDrawer');
+      }
+    }
+
+    installCalloutBtn.addEventListener('click', triggerPWAInstall);
+    document.getElementById('drawerDirectInstallBtn').addEventListener('click', triggerPWAInstall);
+    document.getElementById('settingsInstallActionBtn').addEventListener('click', triggerPWAInstall);
+
+    // Toggle Install Button from Settings
+    const toggleInstallBtnPref = document.getElementById('toggleInstallBtnPref');
+    toggleInstallBtnPref.checked = showInstallPref;
+    toggleInstallBtnPref.addEventListener('change', (e) => {
+      showInstallPref = e.target.checked;
+      localStorage.setItem('lodi_show_install_btn', showInstallPref ? 'true' : 'false');
+      if (!showInstallPref) {
+        installCalloutBtn.classList.remove('visible');
+      } else if (!isStandalone && deferredPrompt) {
+        installCalloutBtn.classList.add('visible');
+      }
+    });
 
     let activeTab = 'routine';
     let targetSeconds = 60;
@@ -1386,14 +1537,13 @@ HTML
       URL.revokeObjectURL(url);
     });
 
-    // SHARE LOGIC & TOAST
+    // SHARE
     function showToast(msg) {
       const toast = document.getElementById('toast');
       toast.textContent = msg;
       toast.classList.add('show');
       setTimeout(() => toast.classList.remove('show'), 2000);
     }
-
     document.getElementById('shareAppBtn').addEventListener('click', async () => {
       const shareData = {
         title: 'Lodi Timer',
@@ -1408,24 +1558,26 @@ HTML
       }
     });
 
-    // 3-LANGUAGE INFO & INSTALLATION CONTENT
+    // 3-LANGUAGE INFO
     const infoTexts = {
       en: {
         title: "Installation & Privacy",
         body: `
           <div class="info-step-box">
             <strong>1. Android (Chrome)</strong><br/>
-            Tap the <strong>3 vertical dots (⋮)</strong> at top right &rarr; Select <strong>"Install app"</strong> (or "Add to Home Screen"). The app will launch edge-to-edge with no address bar.
+            Tap <strong>"📲 Add App to Home Screen"</strong> or tap Chrome's <strong>3 dots (⋮)</strong> &rarr; <strong>"Install app"</strong>. Opens edge-to-edge with no address bar.
           </div>
           <div class="info-step-box">
-            <strong>2. iPhone / iPad (Safari)</strong><br/>
-            Tap the <strong>Share button</strong> (square with up arrow) &rarr; Scroll down and tap <strong>"Add to Home Screen"</strong>.
+            <strong>2. Opened via WhatsApp?</strong><br/>
+            Tap the <strong>3 dots (⋮) in WhatsApp's top header</strong> &rarr; <strong>"Open in Chrome"</strong> so you can install it cleanly.
           </div>
           <div class="info-step-box">
-            <strong>3. 100% Private & Safe</strong><br/>
-            • Zero tracking, cookies, or external analytics.<br/>
-            • Works 100% offline via local service worker.<br/>
-            • No sensitive hardware permissions needed.
+            <strong>3. iPhone / iPad (Safari)</strong><br/>
+            Tap <strong>Share</strong> (box with arrow) &rarr; <strong>"Add to Home Screen"</strong>.
+          </div>
+          <div class="info-step-box">
+            <strong>4. 100% Private & Safe</strong><br/>
+            Zero tracking, zero cookies, runs 100% offline via local storage.
           </div>
         `
       },
@@ -1434,17 +1586,19 @@ HTML
         body: `
           <div class="info-step-box">
             <strong>1. Android (Chrome)</strong><br/>
-            Kliknij <strong>3 pionowe kropki (⋮)</strong> w prawym górnym rogu &rarr; Wybierz <strong>"Zainstaluj aplikację"</strong> (lub "Dodaj do ekranu głównego"). Aplikacja otworzy się na pełnym ekranie bez paska przeglądarki.
+            Kliknij <strong>"📲 Dodaj aplikację do ekranu głównego"</strong> lub <strong>3 pionowe kropki (⋮)</strong> w Chrome &rarr; <strong>"Zainstaluj aplikację"</strong>.
           </div>
           <div class="info-step-box">
-            <strong>2. iPhone / iPad (Safari)</strong><br/>
-            Kliknij ikonę <strong>Udostępnij</strong> (kwadrat ze strzałką w górę) &rarr; Wybierz <strong>"Do ekranu początkowego"</strong>.
+            <strong>2. Otwarto z WhatsApp?</strong><br/>
+            Kliknij <strong>3 kropki (⋮) w nagłówku WhatsApp</strong> &rarr; <strong>"Otwórz w Chrome"</strong>, aby zainstalować aplikację.
           </div>
           <div class="info-step-box">
-            <strong>3. Pełne bezpieczeństwo i prywatność</strong><br/>
-            • Zero reklam, śledzenia i plików cookies.<br/>
-            • Działa w 100% offline w Twoim telefonie.<br/>
-            • Nie wymaga żadnych uprawnień.
+            <strong>3. iPhone / iPad (Safari)</strong><br/>
+            Kliknij <strong>Udostępnij</strong> &rarr; <strong>"Do ekranu początkowego"</strong>.
+          </div>
+          <div class="info-step-box">
+            <strong>4. Pełna prywatność</strong><br/>
+            Zero reklam, zero śledzenia, działa w 100% offline.
           </div>
         `
       },
@@ -1453,26 +1607,26 @@ HTML
         body: `
           <div class="info-step-box rtl-text">
             <strong>1. מכשירי אנדרואיד (Chrome)</strong><br/>
-            לחץ על <strong>3 הנקודות (⋮)</strong> בפינה העליונה &larr; בחר <strong>"התקנת אפליקציה"</strong> (או "הוספה למסך הבית"). האפליקציה תיפתח במסך מלא ללא שורת כתובת.
+            לחץ על <strong>"📲 הוסף אפליקציה למסך הבית"</strong> או על <strong>3 הנקודות (⋮)</strong> ב-Chrome &larr; <strong>"התקנת אפליקציה"</strong>. נפתח במסך מלא ללא שורת כתובת.
           </div>
           <div class="info-step-box rtl-text">
-            <strong>2. אייפון / אייפד (Safari)</strong><br/>
-            לחץ על כפתור <strong>השיתוף</strong> (ריבוע עם חץ כלפי מעלה) &larr; גלול ובחר <strong>"הוסף למסך הבית"</strong>.
+            <strong>2. נפתח דרך וואטסאפ?</strong><br/>
+            לחץ על <strong>3 הנקודות (⋮) בראש המסך בוואטסאפ</strong> &larr; <strong>"פתח ב-Chrome"</strong> כדי לאפשר התקנה תקינה.
           </div>
           <div class="info-step-box rtl-text">
-            <strong>3. בטוח ופרטי ב-100%</strong><br/>
-            • ללא פרסומות, ללא מעקב וללא שמירת מידע בשרתים חיצוניים.<br/>
-            • פועל באופן מלא ללא חיבור לאינטרנט (Offline).<br/>
-            • אינו דורש הרשאות מיוחדות.
+            <strong>3. אייפון / אייפד (Safari)</strong><br/>
+            לחץ על <strong>שיתוף</strong> &larr; <strong>"הוסף למסך הבית"</strong>.
+          </div>
+          <div class="info-step-box rtl-text">
+            <strong>4. בטוח ופרטי ב-100%</strong><br/>
+            ללא פרסומות, ללא מעקב, ופועל במלואו ללא אינטרנט.
           </div>
         `
       }
     };
 
     function setInfoLanguage(lang) {
-      document.querySelectorAll('.lang-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.lang === lang);
-      });
+      document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.lang === lang));
       const data = infoTexts[lang];
       document.getElementById('infoTitle').textContent = data.title;
       const contentEl = document.getElementById('infoContent');
